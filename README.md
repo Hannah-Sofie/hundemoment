@@ -6,18 +6,18 @@ Nettside for hundetrening — kurskatalog, påmelding, online kurs og adminpanel
 
 - **Next.js 16** (App Router) + **TypeScript**
 - **Tailwind CSS 4** med custom designtokens
-- **Supabase** — database, auth, fillagring _(kommer i etappe 2)_
-- **Vercel** — hosting _(kommer i etappe 5)_
+- **Supabase** — database, auth, fillagring
+- **Vercel** — hosting
 
-## Utviklingsplan
+## Status
 
-| Etappe | Hva | Status |
-|--------|-----|--------|
-| 1 | Hjemmeside og info-sider | ✅ Ferdig |
-| [2](https://github.com/Hannah-Sofie/hundemoment/issues/1) | Database og adminpanel | 🚧 I arbeid |
-| [3](https://github.com/Hannah-Sofie/hundemoment/issues/2) | Kurskalender, påmelding, faktura-varsel | ⏳ Ikke startet |
-| [4](https://github.com/Hannah-Sofie/hundemoment/issues/3) | Online kurs med video + "min side" | ⏳ Ikke startet |
-| [5](https://github.com/Hannah-Sofie/hundemoment/issues/4) | Polering, SEO, deploy | ⏳ Ikke startet |
+- ✅ Hjemmeside og info-sider
+- 🚧 [Database og adminpanel](https://github.com/Hannah-Sofie/hundemoment/issues/1)
+- ⏳ [Kurskalender, påmelding og faktura-varsel](https://github.com/Hannah-Sofie/hundemoment/issues/2)
+- ⏳ [Online kurs med video og "min side"](https://github.com/Hannah-Sofie/hundemoment/issues/3)
+- ⏳ [Polering, SEO og deploy](https://github.com/Hannah-Sofie/hundemoment/issues/4)
+
+Se alle [åpne issues](https://github.com/Hannah-Sofie/hundemoment/issues) for full oversikt.
 
 ## Kjør lokalt
 
@@ -40,8 +40,10 @@ src/
 │   ├── online/     # /online (online kurs)
 │   └── kontakt/    # /kontakt
 ├── components/     # Delte komponenter (SiteNav, SiteFooter, m.fl.)
+├── lib/            # Klienter og hjelpere (Supabase, m.m.)
 └── app/globals.css # Designtokens (farger, typografi)
 
+supabase/           # SQL-skjema og migreringer
 design/             # Design-mockup som referanse
 ```
 
@@ -54,4 +56,4 @@ design/             # Design-mockup som referanse
 ## Branching
 
 - `main` — produksjonsklar kode
-- `etappe-N-navn` — feature-branches per etappe, merges via PR
+- Feature-branches — én per issue, merges via PR
