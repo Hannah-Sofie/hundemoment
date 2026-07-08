@@ -53,7 +53,19 @@ design/             # Design-mockup som referanse
 - **Typografi:** Nunito (display) + Inter (brød)
 - **Full mockup:** [`design/mockups.html`](./design/mockups.html)
 
-## Branching
+## Branching og commits
 
-- `main` — produksjonsklar kode
-- Feature-branches — én per issue, merges via PR
+Følger [Conventional Commits](https://www.conventionalcommits.org/):
+
+| Prefix | Når |
+|--------|-----|
+| `feat/` | Ny funksjonalitet |
+| `fix/` | Bugfix |
+| `chore/` | Rydding, oppgraderinger |
+| `docs/` | Kun dokumentasjon |
+| `refactor/` | Kode-restrukturering |
+| `style/` | Kun formatering/CSS |
+
+- `main` — produksjonsklar kode. Alle endringer via PR.
+- Branchnavn: `feat/kort-beskrivelse`, `fix/kort-beskrivelse`, osv.
+- Commit-meldinger: `feat: kort beskrivelse av endring` (samme prefiks som branchen).
