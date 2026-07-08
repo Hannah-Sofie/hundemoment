@@ -1,0 +1,1836 @@
+<title>Hundemoment — Designforslag</title>
+<style>
+  :root {
+    color-scheme: light dark;
+
+    --cream: #FFF4E6;
+    --surface: #FFFFFF;
+    --surface-soft: #FFF9F1;
+    --ink: #1F1035;
+    --ink-muted: #6B5B7A;
+    --purple: #6B2FBA;
+    --purple-deep: #4A1F82;
+    --purple-soft: #F1E6FA;
+    --orange: #FF6B35;
+    --orange-soft: #FFE3D3;
+    --peach: #FFC896;
+    --border: rgba(107, 47, 186, 0.14);
+    --border-strong: rgba(107, 47, 186, 0.24);
+    --shadow: 0 24px 60px -24px rgba(75, 30, 130, 0.22);
+    --shadow-sm: 0 6px 20px -8px rgba(75, 30, 130, 0.18);
+
+    --display: ui-rounded, "SF Pro Rounded", "Nunito", "Avenir Next Rounded", "Segoe UI", system-ui, sans-serif;
+    --body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Segoe UI", system-ui, sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --cream: #150A24;
+      --surface: #221439;
+      --surface-soft: #1B0F30;
+      --ink: #FBEEDC;
+      --ink-muted: #A493BE;
+      --purple: #B896EE;
+      --purple-deep: #C9AFF3;
+      --purple-soft: #33205A;
+      --orange: #FF9061;
+      --orange-soft: #4A2A1D;
+      --peach: #C88856;
+      --border: rgba(184, 150, 238, 0.18);
+      --border-strong: rgba(184, 150, 238, 0.32);
+      --shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.7);
+      --shadow-sm: 0 6px 20px -8px rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  :root[data-theme="light"] {
+    --cream: #FFF4E6;
+    --surface: #FFFFFF;
+    --surface-soft: #FFF9F1;
+    --ink: #1F1035;
+    --ink-muted: #6B5B7A;
+    --purple: #6B2FBA;
+    --purple-deep: #4A1F82;
+    --purple-soft: #F1E6FA;
+    --orange: #FF6B35;
+    --orange-soft: #FFE3D3;
+    --peach: #FFC896;
+    --border: rgba(107, 47, 186, 0.14);
+    --border-strong: rgba(107, 47, 186, 0.24);
+    --shadow: 0 24px 60px -24px rgba(75, 30, 130, 0.22);
+    --shadow-sm: 0 6px 20px -8px rgba(75, 30, 130, 0.18);
+  }
+
+  :root[data-theme="dark"] {
+    --cream: #150A24;
+    --surface: #221439;
+    --surface-soft: #1B0F30;
+    --ink: #FBEEDC;
+    --ink-muted: #A493BE;
+    --purple: #B896EE;
+    --purple-deep: #C9AFF3;
+    --purple-soft: #33205A;
+    --orange: #FF9061;
+    --orange-soft: #4A2A1D;
+    --peach: #C88856;
+    --border: rgba(184, 150, 238, 0.18);
+    --border-strong: rgba(184, 150, 238, 0.32);
+    --shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.7);
+    --shadow-sm: 0 6px 20px -8px rgba(0, 0, 0, 0.5);
+  }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    padding: 32px 24px 80px;
+  }
+
+  .page {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 72px;
+  }
+
+  /* -------- Doc header -------- */
+  .doc-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 48px;
+    align-items: end;
+    padding-top: 24px;
+  }
+
+  .brand-mark {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+    color: var(--purple);
+  }
+
+  .brand-mark svg { width: 26px; height: 26px; color: var(--orange); }
+
+  .eyebrow {
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    font-weight: 700;
+    color: var(--orange);
+    margin: 0 0 12px;
+  }
+
+  .doc-title h1 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(32px, 4vw, 46px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 12px 0 16px;
+    text-wrap: balance;
+  }
+
+  .doc-title h1 em {
+    font-style: normal;
+    color: var(--orange);
+    background: linear-gradient(180deg, transparent 62%, var(--orange-soft) 62%);
+    padding: 0 6px;
+    border-radius: 6px;
+  }
+
+  .doc-title p.lead {
+    color: var(--ink-muted);
+    font-size: 17px;
+    max-width: 44ch;
+    margin: 0;
+  }
+
+  .doc-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* -------- Brand strip: palette + type -------- */
+  .brand-strip {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 20px;
+  }
+
+  .brand-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 22px 24px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .brand-card h3 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 0 0 16px;
+    color: var(--ink-muted);
+  }
+
+  .swatches {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+  }
+
+  .swatch {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .swatch-chip {
+    aspect-ratio: 1;
+    border-radius: 14px;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05);
+  }
+
+  .swatch-label {
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .swatch-hex {
+    font-size: 10px;
+    color: var(--ink-muted);
+    font-variant-numeric: tabular-nums;
+    font-family: ui-monospace, monospace;
+  }
+
+  .type-sample {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .type-display {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 40px;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: var(--purple);
+    margin: 0;
+  }
+
+  .type-display em {
+    font-style: normal;
+    color: var(--orange);
+  }
+
+  .type-body {
+    font-size: 15px;
+    color: var(--ink);
+    margin: 0;
+    max-width: 40ch;
+  }
+
+  .type-meta {
+    display: flex;
+    gap: 24px;
+    font-size: 12px;
+    color: var(--ink-muted);
+    padding-top: 6px;
+    border-top: 1px dashed var(--border-strong);
+  }
+
+  /* -------- Mockup blocks -------- */
+  .mockup-block {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .mockup-header {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+  }
+
+  .mockup-num {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 42px;
+    color: var(--purple);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .mockup-header .eyebrow { margin: 0 0 4px; }
+
+  .mockup-header h2 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 26px;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  .mockup-header .desc {
+    color: var(--ink-muted);
+    margin-left: auto;
+    max-width: 32ch;
+    font-size: 14px;
+  }
+
+  .mockup {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+
+  /* --- Shared UI within mockups --- */
+  .site-nav {
+    display: flex;
+    align-items: center;
+    padding: 18px 32px;
+    gap: 32px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  .site-nav .brand-mark { font-size: 17px; }
+
+  .site-nav ul {
+    display: flex;
+    gap: 26px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .site-nav ul li { color: var(--ink); cursor: default; }
+  .site-nav ul li.active { color: var(--purple); font-weight: 700; }
+
+  .site-nav .nav-cta {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .btn {
+    font-family: var(--body);
+    font-weight: 700;
+    font-size: 14px;
+    border-radius: 999px;
+    padding: 11px 20px;
+    border: 0;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+
+  .btn-primary {
+    background: var(--orange);
+    color: white;
+    box-shadow: 0 8px 20px -8px var(--orange);
+  }
+
+  .btn-secondary {
+    background: var(--purple);
+    color: white;
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--purple);
+    border: 1.5px solid var(--purple);
+  }
+
+  .btn-mini {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+
+  /* -------- Hjemmeside hero -------- */
+  .hero {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 32px;
+    padding: 56px 48px 44px;
+    align-items: center;
+    background:
+      radial-gradient(circle at 90% 20%, var(--orange-soft), transparent 55%),
+      radial-gradient(circle at 10% 90%, var(--purple-soft), transparent 55%),
+      var(--surface);
+  }
+
+  .hero h1 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(34px, 4.4vw, 54px);
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+    margin: 14px 0 18px;
+    text-wrap: balance;
+  }
+
+  .hero h1 em {
+    font-style: normal;
+    color: var(--orange);
+    position: relative;
+    display: inline-block;
+  }
+
+  .hero h1 em::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 4px;
+    height: 12px;
+    background: var(--peach);
+    border-radius: 12px;
+    z-index: -1;
+    opacity: 0.6;
+  }
+
+  .hero-lead {
+    font-size: 17px;
+    color: var(--ink-muted);
+    max-width: 42ch;
+    margin: 0 0 24px;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .hero-cta .arrow { transition: transform 0.15s; display: inline-block; }
+  .hero-cta button:hover .arrow { transform: translateX(3px); }
+
+  .trust {
+    margin-top: 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 13px;
+    color: var(--ink-muted);
+  }
+
+  .avatars {
+    display: flex;
+  }
+
+  .avatars .av {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--peach);
+    border: 2px solid var(--surface);
+    margin-left: -8px;
+    display: grid;
+    place-items: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--purple-deep);
+  }
+  .avatars .av:nth-child(1){ margin-left: 0; background: var(--peach); }
+  .avatars .av:nth-child(2){ background: var(--purple-soft); }
+  .avatars .av:nth-child(3){ background: var(--orange-soft); }
+
+  .stars { color: var(--orange); letter-spacing: 2px; font-size: 13px; }
+
+  /* Hero art */
+  .hero-art {
+    aspect-ratio: 1 / 1;
+    max-width: 380px;
+    margin-left: auto;
+    position: relative;
+  }
+
+  .hero-art svg { width: 100%; height: 100%; display: block; }
+
+  /* -------- Section: services -------- */
+  .home-section {
+    padding: 44px 48px;
+    border-top: 1px solid var(--border);
+  }
+
+  .section-head {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    gap: 20px;
+  }
+
+  .section-head h2 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 30px;
+    letter-spacing: -0.015em;
+    margin: 6px 0 0;
+    text-wrap: balance;
+    max-width: 20ch;
+  }
+
+  .section-head .see-all {
+    color: var(--purple);
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+  }
+
+  .services {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+
+  .service-card {
+    background: var(--surface-soft);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card::before {
+    content: "";
+    position: absolute;
+    top: -30px; right: -30px;
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    background: var(--orange-soft);
+    opacity: 0.6;
+  }
+  .service-card:nth-child(2)::before { background: var(--purple-soft); opacity: 0.8; }
+  .service-card:nth-child(3)::before { background: var(--peach); opacity: 0.35; }
+
+  .service-icon {
+    width: 44px; height: 44px;
+    border-radius: 14px;
+    background: var(--surface);
+    display: grid;
+    place-items: center;
+    color: var(--purple);
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    z-index: 1;
+  }
+
+  .service-icon svg { width: 22px; height: 22px; }
+
+  .service-card h3 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 20px;
+    margin: 6px 0 0;
+    position: relative;
+  }
+
+  .service-card p {
+    color: var(--ink-muted);
+    font-size: 14px;
+    margin: 0;
+    position: relative;
+    flex: 1;
+  }
+
+  .service-price {
+    font-family: var(--display);
+    font-weight: 800;
+    color: var(--purple);
+    font-size: 16px;
+    position: relative;
+  }
+
+  /* -------- Section: upcoming courses on home -------- */
+  .upcoming {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .course-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 18px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    transition: box-shadow 0.15s, border-color 0.15s;
+  }
+
+  .course-card:hover {
+    box-shadow: var(--shadow-sm);
+    border-color: var(--border-strong);
+  }
+
+  .date-pill {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 62px; height: 62px;
+    border-radius: 16px;
+    background: var(--purple);
+    color: white;
+    font-family: var(--display);
+    flex-shrink: 0;
+  }
+
+  .date-pill .day {
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .date-pill .month {
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    margin-top: 2px;
+    opacity: 0.85;
+  }
+
+  .course-card:nth-child(2) .date-pill { background: var(--orange); }
+  .course-card:nth-child(3) .date-pill { background: var(--purple-deep); }
+
+  .course-info { flex: 1; min-width: 0; }
+  .course-info h4 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 15px;
+    margin: 0 0 4px;
+    line-height: 1.2;
+  }
+  .course-info .meta { font-size: 12px; color: var(--ink-muted); }
+  .spots {
+    font-size: 11px;
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: var(--orange-soft);
+    color: var(--orange);
+    font-weight: 700;
+    display: inline-block;
+    margin-top: 6px;
+  }
+
+  /* -------- Kurskalender page -------- */
+  .kurs-hero {
+    padding: 44px 48px 28px;
+    background: linear-gradient(180deg, var(--purple-soft), transparent);
+  }
+
+  .kurs-hero h1 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 40px;
+    letter-spacing: -0.02em;
+    margin: 8px 0 12px;
+  }
+
+  .kurs-hero p {
+    color: var(--ink-muted);
+    margin: 0;
+    max-width: 55ch;
+  }
+
+  .filters {
+    display: flex;
+    gap: 8px;
+    padding: 20px 48px;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  .chip {
+    padding: 8px 14px;
+    border-radius: 999px;
+    border: 1.5px solid var(--border-strong);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+    background: transparent;
+  }
+  .chip.active {
+    background: var(--purple);
+    color: white;
+    border-color: var(--purple);
+  }
+
+  .kurs-list {
+    display: flex;
+    flex-direction: column;
+    padding: 8px 48px 40px;
+  }
+
+  .kurs-row {
+    display: grid;
+    grid-template-columns: 80px 1fr auto auto;
+    gap: 24px;
+    align-items: center;
+    padding: 22px 0;
+    border-bottom: 1px dashed var(--border-strong);
+  }
+  .kurs-row:last-child { border: 0; }
+
+  .kurs-row .date-pill { width: 68px; height: 68px; }
+
+  .kurs-row h3 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 18px;
+    margin: 0 0 4px;
+  }
+
+  .kurs-row .meta { font-size: 13px; color: var(--ink-muted); display: flex; gap: 16px; }
+  .kurs-row .meta span { display: inline-flex; align-items: center; gap: 4px; }
+
+  .price {
+    font-family: var(--display);
+    font-weight: 800;
+    color: var(--purple);
+    font-size: 20px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* -------- Kursdetalj panel (side by side with kurs list on demo) -------- */
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .detail-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .detail-panel .cover {
+    height: 160px;
+    background: linear-gradient(135deg, var(--purple), var(--orange));
+    border-radius: 16px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .detail-panel .cover svg {
+    position: absolute;
+    right: 12px; bottom: 0;
+    width: 130px; opacity: 0.6;
+  }
+
+  .detail-panel .cover .badge {
+    position: absolute;
+    top: 14px; left: 14px;
+    background: white;
+    color: var(--purple-deep);
+    padding: 5px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .detail-panel h2 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 24px;
+    margin: 0 0 8px;
+    letter-spacing: -0.01em;
+  }
+
+  .detail-panel .lead {
+    color: var(--ink-muted);
+    margin: 0 0 20px;
+    font-size: 14px;
+  }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 16px;
+    background: var(--surface-soft);
+    border-radius: 14px;
+    margin-bottom: 20px;
+  }
+
+  .fact { display: flex; flex-direction: column; gap: 2px; }
+  .fact .label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-muted);
+    font-weight: 700;
+  }
+  .fact .value { font-weight: 700; font-size: 14px; }
+
+  .checklist { list-style: none; padding: 0; margin: 0 0 24px; display: flex; flex-direction: column; gap: 8px; }
+  .checklist li {
+    display: flex;
+    align-items: start;
+    gap: 10px;
+    font-size: 14px;
+  }
+  .checklist li::before {
+    content: "";
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--orange);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M2 5 L4.5 7 L8 3' stroke='white' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-size: 60%;
+    background-position: center;
+    background-repeat: no-repeat;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .signup-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px;
+    background: var(--purple-soft);
+    border-radius: 14px;
+  }
+
+  .signup-row .signup-meta {
+    flex: 1;
+    font-size: 12px;
+    color: var(--ink-muted);
+    line-height: 1.4;
+  }
+  .signup-row .signup-meta .price-line {
+    font-family: var(--display);
+    font-weight: 800;
+    color: var(--purple);
+    font-size: 20px;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .invoice-note {
+    display: flex;
+    gap: 10px;
+    align-items: start;
+    padding: 12px 14px;
+    background: var(--orange-soft);
+    border-radius: 12px;
+    font-size: 12px;
+    color: var(--ink);
+    margin-top: 12px;
+  }
+  .invoice-note svg { flex-shrink: 0; color: var(--orange); margin-top: 1px; }
+
+  /* -------- Online kurs page -------- */
+  .online-hero {
+    padding: 44px 48px;
+    background: radial-gradient(circle at 20% 20%, var(--orange-soft), transparent 60%), var(--surface);
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 32px;
+    align-items: center;
+  }
+
+  .online-hero h1 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 40px;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 10px 0 12px;
+    max-width: 18ch;
+  }
+  .online-hero p { color: var(--ink-muted); max-width: 42ch; margin: 0; }
+
+  .online-hero-art {
+    display: flex;
+    gap: 12px;
+    justify-content: end;
+  }
+
+  .device {
+    background: var(--ink);
+    padding: 8px;
+    border-radius: 24px;
+    box-shadow: var(--shadow);
+    aspect-ratio: 3/4;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .device-screen {
+    flex: 1;
+    background: var(--purple-soft);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .device-screen::before {
+    content: "▶";
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    color: var(--purple);
+    background: var(--purple-soft);
+    font-size: 24px;
+  }
+
+  .online-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 36px 48px 44px;
+  }
+
+  .online-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .online-thumb {
+    aspect-ratio: 16/10;
+    background: linear-gradient(135deg, var(--purple), var(--purple-deep));
+    position: relative;
+    display: grid;
+    place-items: center;
+    color: white;
+  }
+
+  .online-card:nth-child(2) .online-thumb {
+    background: linear-gradient(135deg, var(--orange), #FF9061);
+  }
+  .online-card:nth-child(3) .online-thumb {
+    background: linear-gradient(135deg, #8E4CD8, var(--orange));
+  }
+
+  .play-btn {
+    width: 54px; height: 54px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.9);
+    display: grid;
+    place-items: center;
+    color: var(--purple);
+    font-size: 20px;
+  }
+
+  .duration-badge {
+    position: absolute;
+    bottom: 10px; right: 10px;
+    background: rgba(0,0,0,0.5);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .online-body {
+    padding: 18px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+  }
+
+  .online-body h3 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 18px;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  .online-body p {
+    color: var(--ink-muted);
+    font-size: 13px;
+    margin: 0;
+    flex: 1;
+  }
+  .online-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 6px;
+  }
+
+  /* -------- Admin panel -------- */
+  .admin-shell {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    min-height: 480px;
+  }
+
+  .admin-side {
+    background: var(--surface-soft);
+    padding: 24px 20px;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .admin-side .brand-mark { margin-bottom: 16px; }
+  .admin-side .side-label {
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--ink-muted);
+    font-weight: 700;
+    margin: 16px 8px 6px;
+  }
+  .admin-side a {
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-size: 14px;
+    color: var(--ink);
+    font-weight: 500;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .admin-side a.active {
+    background: var(--purple);
+    color: white;
+    font-weight: 700;
+  }
+  .admin-side a svg { width: 16px; height: 16px; opacity: 0.7; }
+  .admin-side a.active svg { opacity: 1; }
+
+  .admin-main { padding: 28px 32px; }
+
+  .admin-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  .admin-head h2 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 26px;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  .admin-kpis {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .kpi {
+    background: var(--surface-soft);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px 16px;
+  }
+  .kpi .kpi-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-muted);
+    font-weight: 700;
+  }
+  .kpi .kpi-value {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 24px;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.2;
+  }
+  .kpi .kpi-delta {
+    font-size: 11px;
+    color: var(--orange);
+    font-weight: 700;
+  }
+
+  .admin-table {
+    background: var(--surface-soft);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .admin-table table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .admin-table th, .admin-table td {
+    padding: 12px 16px;
+    text-align: left;
+  }
+  .admin-table th {
+    background: var(--surface);
+    font-weight: 700;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    border-bottom: 1px solid var(--border);
+  }
+  .admin-table tr td { border-bottom: 1px solid var(--border); }
+  .admin-table tr:last-child td { border-bottom: 0; }
+
+  .status {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .status.open { background: var(--orange-soft); color: var(--orange); }
+  .status.full { background: var(--purple-soft); color: var(--purple); }
+  .status.draft { background: rgba(150,150,150,0.15); color: var(--ink-muted); }
+
+  /* -------- Next steps -------- */
+  .next-steps {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 40px 44px;
+    box-shadow: var(--shadow-sm);
+  }
+  .next-steps h2 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 30px;
+    margin: 0 0 8px;
+    letter-spacing: -0.02em;
+  }
+  .next-steps p.lead {
+    color: var(--ink-muted);
+    margin: 0 0 28px;
+    max-width: 55ch;
+  }
+  .steps-list {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    counter-reset: step;
+  }
+  .steps-list li {
+    background: var(--surface-soft);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+    position: relative;
+  }
+  .steps-list li::before {
+    counter-increment: step;
+    content: counter(step);
+    display: block;
+    font-family: var(--display);
+    font-weight: 800;
+    color: var(--orange);
+    font-size: 26px;
+    line-height: 1;
+    margin-bottom: 10px;
+    font-variant-numeric: tabular-nums;
+  }
+  .steps-list h4 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 15px;
+    margin: 0 0 6px;
+    line-height: 1.2;
+  }
+  .steps-list p {
+    font-size: 12px;
+    color: var(--ink-muted);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    body { padding: 20px 12px 60px; }
+    .doc-header, .brand-strip, .hero, .services, .upcoming,
+    .split, .online-grid, .online-hero, .steps-list, .admin-kpis {
+      grid-template-columns: 1fr !important;
+    }
+    .site-nav ul { display: none; }
+    .admin-shell { grid-template-columns: 1fr; }
+    .admin-side { border-right: 0; border-bottom: 1px solid var(--border); flex-direction: row; overflow-x: auto; }
+    .admin-side .side-label { display: none; }
+    .kurs-row { grid-template-columns: 60px 1fr; }
+    .kurs-row .price, .kurs-row .btn { grid-column: 2; }
+    .home-section, .hero, .kurs-hero, .kurs-list, .online-hero, .online-grid { padding-left: 24px; padding-right: 24px; }
+  }
+</style>
+
+<div class="page">
+
+  <!-- ==================== DOC HEADER ==================== -->
+  <header class="doc-header">
+    <div>
+      <span class="brand-mark">
+        <svg viewBox="0 0 40 40" fill="currentColor">
+          <ellipse cx="20" cy="26" rx="10" ry="8"/>
+          <ellipse cx="9" cy="15" rx="4" ry="5" transform="rotate(-15 9 15)"/>
+          <ellipse cx="31" cy="15" rx="4" ry="5" transform="rotate(15 31 15)"/>
+          <circle cx="3" cy="22" r="3"/>
+          <circle cx="37" cy="22" r="3"/>
+        </svg>
+        Hundemoment
+      </span>
+      <div class="doc-title">
+        <p class="eyebrow" style="margin-top:24px">Designforslag · Juli 2026</p>
+        <h1>En varm og leken <em>visuell profil</em> for Hundemoment.</h1>
+        <p class="lead">Fem sider skisset — hjemmeside, kurskatalog, kursdetalj, online kurs og adminpanel. Kongelig lilla holder tonen profesjonell; oransje sørger for lekent driv.</p>
+      </div>
+    </div>
+
+    <!-- Right: brand strip -->
+    <div class="doc-meta">
+      <div class="brand-strip">
+        <div class="brand-card">
+          <h3>Palett</h3>
+          <div class="swatches">
+            <div class="swatch">
+              <div class="swatch-chip" style="background:#6B2FBA"></div>
+              <div>
+                <div class="swatch-label">Kongelig lilla</div>
+                <div class="swatch-hex">#6B2FBA</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-chip" style="background:#FF6B35"></div>
+              <div>
+                <div class="swatch-label">Varm oransje</div>
+                <div class="swatch-hex">#FF6B35</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-chip" style="background:#FFC896"></div>
+              <div>
+                <div class="swatch-label">Fersken</div>
+                <div class="swatch-hex">#FFC896</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-chip" style="background:#FFF4E6;border:1px solid var(--border-strong)"></div>
+              <div>
+                <div class="swatch-label">Krem</div>
+                <div class="swatch-hex">#FFF4E6</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-chip" style="background:#1F1035"></div>
+              <div>
+                <div class="swatch-label">Plomme</div>
+                <div class="swatch-hex">#1F1035</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="brand-card">
+          <h3>Typografi</h3>
+          <div class="type-sample">
+            <p class="type-display">Trygge<br><em>glade hunder.</em></p>
+            <p class="type-body">Runded display for personlighet, humanistisk sans for brødtekst.</p>
+            <div class="type-meta">
+              <span><strong>Display:</strong> SF Pro Rounded</span>
+              <span><strong>Brød:</strong> SF Pro Text</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== 01 HJEMMESIDE ==================== -->
+  <section class="mockup-block">
+    <div class="mockup-header">
+      <span class="mockup-num">01</span>
+      <div>
+        <p class="eyebrow">Side</p>
+        <h2>Hjemmeside</h2>
+      </div>
+      <p class="desc">Første møte. Skal formidle personlighet, vise tilbudene og lokke til å utforske kursene.</p>
+    </div>
+
+    <div class="mockup">
+      <!-- Nav -->
+      <nav class="site-nav">
+        <span class="brand-mark">
+          <svg viewBox="0 0 40 40" fill="currentColor">
+            <ellipse cx="20" cy="26" rx="10" ry="8"/>
+            <ellipse cx="9" cy="15" rx="4" ry="5" transform="rotate(-15 9 15)"/>
+            <ellipse cx="31" cy="15" rx="4" ry="5" transform="rotate(15 31 15)"/>
+            <circle cx="3" cy="22" r="3"/>
+            <circle cx="37" cy="22" r="3"/>
+          </svg>
+          Hundemoment
+        </span>
+        <ul>
+          <li class="active">Hjem</li>
+          <li>Om oss</li>
+          <li>Tjenester</li>
+          <li>Kurs</li>
+          <li>Online kurs</li>
+          <li>Kontakt</li>
+        </ul>
+        <div class="nav-cta">
+          <button class="btn btn-ghost btn-mini">Min side</button>
+          <button class="btn btn-primary btn-mini">Bok time</button>
+        </div>
+      </nav>
+
+      <!-- Hero -->
+      <div class="hero">
+        <div>
+          <p class="eyebrow">Positiv trening · Oslo &amp; online</p>
+          <h1>Sammen bygger vi trygge, <em>glade hunder</em>.</h1>
+          <p class="hero-lead">Kurs, privattimer og online opplæring for valpen, ungdomshunden og den erfarne firbeinte. Trening som fungerer i hverdagen — for hund og eier.</p>
+          <div class="hero-cta">
+            <button class="btn btn-primary">Se kommende kurs <span class="arrow">→</span></button>
+            <button class="btn btn-ghost">Bok privattime</button>
+          </div>
+          <div class="trust">
+            <div class="avatars">
+              <div class="av">M</div>
+              <div class="av">L</div>
+              <div class="av">K</div>
+            </div>
+            <div>
+              <div class="stars">★★★★★</div>
+              <div>240+ fornøyde hundeeiere</div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-art">
+          <svg viewBox="0 0 380 380" xmlns="http://www.w3.org/2000/svg">
+            <!-- Peach background circle -->
+            <circle cx="200" cy="200" r="170" fill="var(--peach)" opacity="0.5"/>
+            <!-- Little decoration paws -->
+            <g fill="var(--purple)" opacity="0.35">
+              <g transform="translate(40,80) scale(0.35)">
+                <ellipse cx="20" cy="26" rx="10" ry="8"/>
+                <circle cx="9" cy="15" r="4"/>
+                <circle cx="31" cy="15" r="4"/>
+                <circle cx="3" cy="22" r="3"/>
+                <circle cx="37" cy="22" r="3"/>
+              </g>
+              <g transform="translate(310,110) scale(0.28) rotate(20)">
+                <ellipse cx="20" cy="26" rx="10" ry="8"/>
+                <circle cx="9" cy="15" r="4"/>
+                <circle cx="31" cy="15" r="4"/>
+                <circle cx="3" cy="22" r="3"/>
+                <circle cx="37" cy="22" r="3"/>
+              </g>
+              <g transform="translate(340,300) scale(0.32) rotate(-20)">
+                <ellipse cx="20" cy="26" rx="10" ry="8"/>
+                <circle cx="9" cy="15" r="4"/>
+                <circle cx="31" cy="15" r="4"/>
+                <circle cx="3" cy="22" r="3"/>
+                <circle cx="37" cy="22" r="3"/>
+              </g>
+            </g>
+            <!-- Dog body -->
+            <g transform="translate(90,120)">
+              <!-- Body -->
+              <ellipse cx="110" cy="150" rx="95" ry="60" fill="var(--purple)"/>
+              <!-- Legs -->
+              <rect x="45" y="180" width="22" height="45" rx="10" fill="var(--purple-deep)"/>
+              <rect x="80" y="185" width="22" height="45" rx="10" fill="var(--purple-deep)"/>
+              <rect x="130" y="185" width="22" height="45" rx="10" fill="var(--purple-deep)"/>
+              <rect x="165" y="180" width="22" height="45" rx="10" fill="var(--purple-deep)"/>
+              <!-- Tail wag -->
+              <path d="M195 130 Q 230 100 220 65" stroke="var(--purple)" stroke-width="20" fill="none" stroke-linecap="round"/>
+              <!-- Head -->
+              <circle cx="55" cy="95" r="52" fill="var(--purple)"/>
+              <!-- Ears -->
+              <path d="M20 60 Q 5 30 30 25 Q 45 40 40 75 Z" fill="var(--purple-deep)"/>
+              <path d="M90 60 Q 105 30 80 25 Q 65 40 70 75 Z" fill="var(--purple-deep)"/>
+              <!-- Snout -->
+              <ellipse cx="55" cy="115" rx="28" ry="20" fill="var(--peach)"/>
+              <!-- Nose -->
+              <ellipse cx="55" cy="103" rx="6" ry="4" fill="var(--ink)"/>
+              <!-- Eyes -->
+              <circle cx="35" cy="85" r="4" fill="var(--ink)"/>
+              <circle cx="75" cy="85" r="4" fill="var(--ink)"/>
+              <circle cx="36" cy="83" r="1.5" fill="white"/>
+              <circle cx="76" cy="83" r="1.5" fill="white"/>
+              <!-- Mouth (tongue) -->
+              <path d="M50 120 Q 55 128 60 120" stroke="var(--ink)" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <ellipse cx="55" cy="126" rx="4" ry="6" fill="var(--orange)"/>
+              <!-- Collar -->
+              <path d="M15 130 Q 55 145 95 130" stroke="var(--orange)" stroke-width="10" fill="none" stroke-linecap="round"/>
+              <!-- Tag -->
+              <circle cx="55" cy="150" r="9" fill="var(--orange)" stroke="white" stroke-width="1.5"/>
+              <text x="55" y="153" text-anchor="middle" font-size="8" font-family="var(--display)" font-weight="800" fill="white">HM</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Services -->
+      <div class="home-section">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Tilbud</p>
+            <h2>Kurs og trening som passer dere.</h2>
+          </div>
+          <a href="#" class="see-all">Se alle tjenester →</a>
+        </div>
+        <div class="services">
+          <div class="service-card">
+            <div class="service-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3" fill="white"/></svg>
+            </div>
+            <h3>Valpekurs</h3>
+            <p>Grunnlaget for et godt hundeliv. Sosialisering, kall, kobletrening og god start i familielivet.</p>
+            <span class="service-price">Fra 3 200 kr</span>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12h8M13 12h8M11 6l6 12M13 6l-6 12" stroke-linecap="round"/></svg>
+            </div>
+            <h3>Grunnkurs</h3>
+            <p>For hunder fra 6 måneder. Vi jobber med lydighet, passivitet og hverdagsutfordringer.</p>
+            <span class="service-price">Fra 3 500 kr</span>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v20M2 12h20" stroke-linecap="round"/><circle cx="12" cy="12" r="4"/></svg>
+            </div>
+            <h3>Privattimer</h3>
+            <p>Skreddersydd oppfølging hjemme eller på tur. For konkrete utfordringer og rask fremgang.</p>
+            <span class="service-price">850 kr / time</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Upcoming courses -->
+      <div class="home-section">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Kommende kurs</p>
+            <h2>Snart oppstart.</h2>
+          </div>
+          <a href="#" class="see-all">Hele kurskalenderen →</a>
+        </div>
+        <div class="upcoming">
+          <div class="course-card">
+            <div class="date-pill"><span class="day">12</span><span class="month">Aug</span></div>
+            <div class="course-info">
+              <h4>Valpekurs — kveld</h4>
+              <div class="meta">Torsdager 18:00 · Bygdøy</div>
+              <span class="spots">3 plasser igjen</span>
+            </div>
+          </div>
+          <div class="course-card">
+            <div class="date-pill"><span class="day">19</span><span class="month">Aug</span></div>
+            <div class="course-info">
+              <h4>Grunnkurs A</h4>
+              <div class="meta">Mandager 17:30 · Grefsen</div>
+              <span class="spots">5 plasser igjen</span>
+            </div>
+          </div>
+          <div class="course-card">
+            <div class="date-pill"><span class="day">02</span><span class="month">Sep</span></div>
+            <div class="course-info">
+              <h4>Trikstrening for viderekomne</h4>
+              <div class="meta">Lørdager 11:00 · Sagene</div>
+              <span class="spots">2 plasser igjen</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 02 KURSKATALOG + 03 KURSDETALJ ==================== -->
+  <section class="mockup-block">
+    <div class="mockup-header">
+      <span class="mockup-num">02</span>
+      <div>
+        <p class="eyebrow">Side</p>
+        <h2>Kurskatalog &amp; kursdetalj</h2>
+      </div>
+      <p class="desc">Alle fysiske kurs på ett sted. Klikk på et kurs for detaljer og påmelding med Vipps.</p>
+    </div>
+
+    <div class="split">
+      <!-- Kurskatalog -->
+      <div class="mockup">
+        <div class="kurs-hero">
+          <p class="eyebrow">Kurskalender</p>
+          <h1>Kommende kurs</h1>
+          <p>Finn kurset som passer dere — filtrer på nivå og sted.</p>
+        </div>
+        <div class="filters">
+          <span class="chip active">Alle</span>
+          <span class="chip">Valp</span>
+          <span class="chip">Grunnkurs</span>
+          <span class="chip">Videre­gående</span>
+          <span class="chip">Nose work</span>
+          <span class="chip">Triks</span>
+        </div>
+        <div class="kurs-list">
+          <div class="kurs-row">
+            <div class="date-pill"><span class="day">12</span><span class="month">Aug</span></div>
+            <div>
+              <h3>Valpekurs — kveld</h3>
+              <div class="meta">
+                <span>🕒 Tor 18:00 · 6 uker</span>
+                <span>📍 Bygdøy</span>
+              </div>
+            </div>
+            <span class="price">3 200</span>
+            <button class="btn btn-primary btn-mini">Meld på</button>
+          </div>
+          <div class="kurs-row">
+            <div class="date-pill" style="background:var(--orange)"><span class="day">19</span><span class="month">Aug</span></div>
+            <div>
+              <h3>Grunnkurs A</h3>
+              <div class="meta">
+                <span>🕒 Man 17:30 · 8 uker</span>
+                <span>📍 Grefsen</span>
+              </div>
+            </div>
+            <span class="price">3 500</span>
+            <button class="btn btn-primary btn-mini">Meld på</button>
+          </div>
+          <div class="kurs-row">
+            <div class="date-pill" style="background:var(--purple-deep)"><span class="day">02</span><span class="month">Sep</span></div>
+            <div>
+              <h3>Trikstrening</h3>
+              <div class="meta">
+                <span>🕒 Lør 11:00 · 5 uker</span>
+                <span>📍 Sagene</span>
+              </div>
+            </div>
+            <span class="price">2 800</span>
+            <button class="btn btn-primary btn-mini">Meld på</button>
+          </div>
+          <div class="kurs-row">
+            <div class="date-pill"><span class="day">14</span><span class="month">Sep</span></div>
+            <div>
+              <h3>Nose work — nybegynner</h3>
+              <div class="meta">
+                <span>🕒 Søn 13:00 · 4 uker</span>
+                <span>📍 Skøyen</span>
+              </div>
+            </div>
+            <span class="price">2 400</span>
+            <button class="btn btn-primary btn-mini">Meld på</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kursdetalj -->
+      <div class="mockup">
+        <div style="padding: 32px 32px 12px">
+          <p class="eyebrow" style="margin: 0 0 4px">Kursdetalj — 03</p>
+        </div>
+        <div class="detail-panel" style="border: 0; box-shadow: none; padding: 8px 32px 32px">
+          <div class="cover">
+            <span class="badge">Populært</span>
+            <svg viewBox="0 0 40 40" fill="white">
+              <ellipse cx="20" cy="26" rx="10" ry="8"/>
+              <ellipse cx="9" cy="15" rx="4" ry="5" transform="rotate(-15 9 15)"/>
+              <ellipse cx="31" cy="15" rx="4" ry="5" transform="rotate(15 31 15)"/>
+              <circle cx="3" cy="22" r="3"/>
+              <circle cx="37" cy="22" r="3"/>
+            </svg>
+          </div>
+          <h2>Valpekurs — kveld</h2>
+          <p class="lead">Seks uker med sosialisering, grunnleggende trening og gode vaner. For valper 10–20 uker.</p>
+          <div class="facts">
+            <div class="fact"><span class="label">Oppstart</span><span class="value">12. august</span></div>
+            <div class="fact"><span class="label">Sted</span><span class="value">Bygdøy</span></div>
+            <div class="fact"><span class="label">Varighet</span><span class="value">6 uker · 60 min</span></div>
+            <div class="fact"><span class="label">Plasser</span><span class="value" style="color:var(--orange)">3 igjen</span></div>
+          </div>
+          <ul class="checklist">
+            <li>Sosialisering med andre valper og mennesker</li>
+            <li>Grunnleggende innkalling og kobletrening</li>
+            <li>Hjemmemiljø: håndtering, ro og passivitet</li>
+          </ul>
+          <div class="signup-row">
+            <div class="signup-meta">
+              <span class="price-line">3 200 kr</span>
+              Faktura sendes til e-post innen 3 dager. 14 dagers betalingsfrist.
+            </div>
+            <button class="btn btn-primary">Meld på kurset →</button>
+          </div>
+          <div class="invoice-note">
+            <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 4a1 1 0 011 1v4a1 1 0 11-2 0V7a1 1 0 011-1zm0 8a1 1 0 100 2 1 1 0 000-2z"/></svg>
+            <div>Plassen din er reservert straks du melder deg på. Trekker du deg mer enn 7 dager før oppstart er det gratis.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 04 ONLINE KURS ==================== -->
+  <section class="mockup-block">
+    <div class="mockup-header">
+      <span class="mockup-num">04</span>
+      <div>
+        <p class="eyebrow">Side</p>
+        <h2>Online kurs</h2>
+      </div>
+      <p class="desc">Videokurs kunden kjøper tilgang til og ser i eget tempo på "min side".</p>
+    </div>
+
+    <div class="mockup">
+      <div class="online-hero">
+        <div>
+          <p class="eyebrow">Nettkurs — i eget tempo</p>
+          <h1>Trening som passer <em style="color:var(--orange);font-style:normal">din hverdag</em>.</h1>
+          <p>Videokurs du kjøper én gang og har for alltid. Se på TV, mobil eller pc — trene når det passer.</p>
+        </div>
+        <div class="online-hero-art">
+          <div class="device">
+            <div class="device-screen"></div>
+          </div>
+          <div class="device" style="transform: translateY(20px) rotate(4deg)">
+            <div class="device-screen" style="background: var(--orange-soft)"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="online-grid">
+        <div class="online-card">
+          <div class="online-thumb">
+            <div class="play-btn">▶</div>
+            <span class="duration-badge">2t 40min</span>
+          </div>
+          <div class="online-body">
+            <h3>Rolig hverdagshund</h3>
+            <p>Trening i passivitet, hvile og god ro hjemme. 8 videoleksjoner.</p>
+            <div class="online-foot">
+              <span class="price">590 kr</span>
+              <button class="btn btn-primary btn-mini">Kjøp tilgang</button>
+            </div>
+          </div>
+        </div>
+        <div class="online-card">
+          <div class="online-thumb">
+            <div class="play-btn">▶</div>
+            <span class="duration-badge">3t 10min</span>
+          </div>
+          <div class="online-body">
+            <h3>Valp fra dag én</h3>
+            <p>Alt du trenger de første ukene med valp. 12 leksjoner + sjekklister.</p>
+            <div class="online-foot">
+              <span class="price">790 kr</span>
+              <button class="btn btn-primary btn-mini">Kjøp tilgang</button>
+            </div>
+          </div>
+        </div>
+        <div class="online-card">
+          <div class="online-thumb">
+            <div class="play-btn">▶</div>
+            <span class="duration-badge">1t 50min</span>
+          </div>
+          <div class="online-body">
+            <h3>Nose work hjemme</h3>
+            <p>Lek og hjernetrim uten spesialutstyr. 6 leksjoner + øvelsesplan.</p>
+            <div class="online-foot">
+              <span class="price">490 kr</span>
+              <button class="btn btn-primary btn-mini">Kjøp tilgang</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 05 ADMIN PANEL ==================== -->
+  <section class="mockup-block">
+    <div class="mockup-header">
+      <span class="mockup-num">05</span>
+      <div>
+        <p class="eyebrow">Verktøy for treneren</p>
+        <h2>Adminpanel</h2>
+      </div>
+      <p class="desc">Treneren logger inn og styrer selv kurs, priser og påmeldinger — ingen koding.</p>
+    </div>
+
+    <div class="mockup">
+      <div class="admin-shell">
+        <aside class="admin-side">
+          <span class="brand-mark">
+            <svg viewBox="0 0 40 40" fill="currentColor">
+              <ellipse cx="20" cy="26" rx="10" ry="8"/>
+              <ellipse cx="9" cy="15" rx="4" ry="5" transform="rotate(-15 9 15)"/>
+              <ellipse cx="31" cy="15" rx="4" ry="5" transform="rotate(15 31 15)"/>
+              <circle cx="3" cy="22" r="3"/>
+              <circle cx="37" cy="22" r="3"/>
+            </svg>
+            Hundemoment
+          </span>
+          <span class="side-label">Oversikt</span>
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l9-9 9 9M5 10v11h14V10"/></svg>Dashboard</a>
+          <span class="side-label">Innhold</span>
+          <a href="#" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg>Kurs</a>
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Online kurs</a>
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg>Påmeldinger</a>
+          <span class="side-label">Konto</span>
+          <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M21 12h-3M6 12H3"/></svg>Innstillinger</a>
+        </aside>
+        <div class="admin-main">
+          <div class="admin-head">
+            <div>
+              <p class="eyebrow" style="margin: 0 0 4px">Dine kurs</p>
+              <h2>Kurs høsten 2026</h2>
+            </div>
+            <button class="btn btn-primary btn-mini">+ Nytt kurs</button>
+          </div>
+          <div class="admin-kpis">
+            <div class="kpi">
+              <div class="kpi-label">Kommende kurs</div>
+              <div class="kpi-value">8</div>
+              <div class="kpi-delta">+2 fra i vår</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-label">Påmeldinger</div>
+              <div class="kpi-value">47</div>
+              <div class="kpi-delta">+12 sist uke</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-label">Omsetning</div>
+              <div class="kpi-value">128 400</div>
+              <div class="kpi-delta">Kroner i mnd</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-label">Online-salg</div>
+              <div class="kpi-value">31</div>
+              <div class="kpi-delta">Denne mnd</div>
+            </div>
+          </div>
+          <div class="admin-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Kurs</th>
+                  <th>Oppstart</th>
+                  <th>Sted</th>
+                  <th>Plasser</th>
+                  <th>Status</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Valpekurs — kveld</strong></td>
+                  <td>12. aug</td>
+                  <td>Bygdøy</td>
+                  <td>5 / 8</td>
+                  <td><span class="status open">Åpen</span></td>
+                  <td>Rediger</td>
+                </tr>
+                <tr>
+                  <td><strong>Grunnkurs A</strong></td>
+                  <td>19. aug</td>
+                  <td>Grefsen</td>
+                  <td>3 / 8</td>
+                  <td><span class="status open">Åpen</span></td>
+                  <td>Rediger</td>
+                </tr>
+                <tr>
+                  <td><strong>Trikstrening</strong></td>
+                  <td>2. sep</td>
+                  <td>Sagene</td>
+                  <td>6 / 6</td>
+                  <td><span class="status full">Fullt</span></td>
+                  <td>Rediger</td>
+                </tr>
+                <tr>
+                  <td><strong>Nose work høst</strong></td>
+                  <td>14. sep</td>
+                  <td>Skøyen</td>
+                  <td>0 / 8</td>
+                  <td><span class="status draft">Utkast</span></td>
+                  <td>Rediger</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== NEXT STEPS ==================== -->
+  <section class="next-steps">
+    <p class="eyebrow">Veien videre</p>
+    <h2>Slik bygger vi det.</h2>
+    <p class="lead">Fem korte etapper. Du kan bruke siden allerede etter etappe 2 — resten legger vi på når den er klar.</p>
+    <ol class="steps-list">
+      <li>
+        <h4>Grunnmur</h4>
+        <p>Next.js-oppsett, design, hjemmeside, om-siden, tjenester, kontakt.</p>
+      </li>
+      <li>
+        <h4>Kurs &amp; påmelding</h4>
+        <p>Database, adminpanel, kurskalender og påmeldingsskjema.</p>
+      </li>
+      <li>
+        <h4>Kurskalender</h4>
+        <p>Offentlig kalender, påmelding, e-post til deg for manuell faktura.</p>
+      </li>
+      <li>
+        <h4>Online kurs</h4>
+        <p>Video-opplasting, beskyttet innhold, "min side" for kunden.</p>
+      </li>
+      <li>
+        <h4>Polering &amp; deploy</h4>
+        <p>SEO, mobil, e-post, deploy til Vercel, GitHub for kode og issues.</p>
+      </li>
+    </ol>
+  </section>
+
+</div>
