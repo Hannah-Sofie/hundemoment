@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { PawIcon } from "@/components/PawLogo";
+import { BrandLockup, PawIcon } from "@/components/PawLogo";
 
 const services = [
   {
@@ -118,17 +118,22 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Bilde av Line og Sandra med hundene */}
-          <div className="relative mx-auto w-full max-w-md">
-            <PawIcon
-              className="absolute -top-6 -right-4 z-10 rotate-12 text-orange"
-              size={44}
+          {/* Collage-hero: foto + floating brand-stamp + podcast-badge + pote-dekor */}
+          <div className="relative mx-auto w-full max-w-lg py-6">
+            {/* Bakgrunn: myk lilla blob bak fotoet */}
+            <div
+              className="absolute -right-6 -top-6 h-64 w-64 rounded-full opacity-60 blur-2xl"
+              style={{ background: "var(--purple-soft)" }}
+              aria-hidden
             />
-            <PawIcon
-              className="absolute -bottom-4 -left-4 z-10 -rotate-12 text-purple opacity-70"
-              size={36}
+            <div
+              className="absolute -bottom-6 -left-6 h-48 w-48 rounded-full opacity-50 blur-2xl"
+              style={{ background: "var(--orange-soft)" }}
+              aria-hidden
             />
-            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[2rem] shadow-[0_24px_60px_-20px_rgba(94,47,206,0.35)]">
+
+            {/* Hovedbilde */}
+            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[2rem] shadow-[0_30px_60px_-20px_rgba(94,47,206,0.4)] sm:aspect-[4/3]">
               <Image
                 src="/line-og-sandra.jpg"
                 alt="Line og Sandra med hundene sine foran rhododendron"
@@ -137,7 +142,53 @@ export default function Home() {
                 sizes="(min-width: 768px) 40vw, 100vw"
                 className="object-cover"
               />
+              {/* Subtil gradient nederst for kontrast mot flytende kort */}
+              <div
+                className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent"
+                aria-hidden
+              />
             </div>
+
+            {/* Floating brand-stamp øverst til venstre */}
+            <div className="absolute -left-4 top-6 z-10 rotate-[-8deg]">
+              <div className="rounded-2xl bg-surface p-3 shadow-[0_10px_30px_-10px_rgba(94,47,206,0.35)]">
+                <BrandLockup size="sm" />
+              </div>
+            </div>
+
+            {/* Floating podcast-badge nederst til høyre */}
+            <div className="absolute -bottom-4 -right-2 z-10 max-w-[240px] rotate-[3deg]">
+              <div className="flex items-start gap-3 rounded-2xl bg-surface p-4 shadow-[0_10px_30px_-10px_rgba(94,47,206,0.35)]">
+                <div className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-orange text-lg">
+                  🎧
+                </div>
+                <div className="min-w-0">
+                  <div className="text-xs font-bold uppercase tracking-widest text-orange">
+                    Podcast
+                  </div>
+                  <div className="mt-0.5 font-display text-sm font-extrabold text-ink leading-tight">
+                    LÆR OM HUND — ny episode torsdager
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Floating trainer-tag øverst til høyre (over bildet) */}
+            <div className="absolute -right-3 top-16 z-10 -rotate-[4deg]">
+              <div className="rounded-full bg-purple px-4 py-2 text-xs font-bold text-white shadow-[0_10px_30px_-10px_var(--purple)]">
+                Line &amp; Sandra 🧡
+              </div>
+            </div>
+
+            {/* Pote-dekor rundt */}
+            <PawIcon
+              className="absolute -top-2 right-16 text-orange"
+              size={28}
+            />
+            <PawIcon
+              className="absolute bottom-16 -left-6 -rotate-12 text-peach"
+              size={22}
+            />
           </div>
         </div>
       </section>
