@@ -38,9 +38,9 @@ export function BrandLockup({
   className?: string;
 }) {
   const dims = {
-    sm: { pad: "px-2.5 py-1", hunde: "text-xs", moment: "text-sm" },
-    md: { pad: "px-3 py-1.5", hunde: "text-sm", moment: "text-lg" },
-    lg: { pad: "px-5 py-3", hunde: "text-lg", moment: "text-3xl" },
+    sm: { pad: "px-2.5 py-1", hunde: "text-sm", moment: "text-sm" },
+    md: { pad: "px-3 py-1.5", hunde: "text-xl", moment: "text-xl" },
+    lg: { pad: "px-5 py-3", hunde: "text-3xl", moment: "text-3xl" },
   }[size];
 
   return (

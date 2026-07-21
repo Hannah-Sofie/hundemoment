@@ -3,6 +3,7 @@ import { Nunito, Inter } from "next/font/google";
 import "./globals.css";
 import { SiteNav } from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
+import { ScrollToTop } from "@/components/ScrollToTop";
 
 const nunito = Nunito({
   variable: "--font-nunito",
@@ -40,6 +41,7 @@ export default function RootLayout({
         <SiteNav />
         <main className="flex-1">{children}</main>
         <SiteFooter />
+        <ScrollToTop />
       </body>
     </html>
   );
