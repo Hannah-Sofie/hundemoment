@@ -61,8 +61,8 @@ const accentBg = {
 export default function Home() {
   return (
     <div>
-      {/* Hero — foto som full-bleed bakgrunn, tekst nederst */}
-      <section className="relative flex min-h-[640px] overflow-hidden md:min-h-[720px]">
+      {/* Hero — foto som full-bleed bakgrunn, dekker skjermen minus nav */}
+      <section className="relative flex min-h-[calc(100dvh-6rem)] overflow-hidden">
         {/* Bakgrunnsbilde */}
         <div className="absolute inset-0">
           <Image
