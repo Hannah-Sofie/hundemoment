@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { PawIcon } from "@/components/PawLogo";
 
 const services = [
   {
@@ -62,8 +61,8 @@ const accentBg = {
 export default function Home() {
   return (
     <div>
-      {/* Hero — foto som full-bleed bakgrunn, tekst oppå */}
-      <section className="relative overflow-hidden">
+      {/* Hero — foto som full-bleed bakgrunn, tekst nederst */}
+      <section className="relative flex min-h-[640px] overflow-hidden md:min-h-[720px]">
         {/* Bakgrunnsbilde */}
         <div className="absolute inset-0">
           <Image
@@ -72,93 +71,47 @@ export default function Home() {
             fill
             priority
             sizes="100vw"
-            className="object-cover object-[center_30%]"
+            className="object-cover object-[center_25%]"
           />
-          {/* Overlay: lilla-gradient som er tett til venstre for lesbarhet, lettere til høyre der ansiktene er */}
+          {/* Overlay: vertikal fade nedenfra — beholder ansikter fri, gir tekst-lesbarhet nederst */}
           <div
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(90deg, rgba(31,16,53,0.85) 0%, rgba(74,31,130,0.7) 35%, rgba(74,31,130,0.25) 65%, rgba(74,31,130,0.1) 100%)",
+                "linear-gradient(180deg, rgba(31,16,53,0) 0%, rgba(31,16,53,0.15) 40%, rgba(31,16,53,0.75) 80%, rgba(31,16,53,0.92) 100%)",
             }}
             aria-hidden
           />
         </div>
 
-        <div className="relative mx-auto max-w-6xl px-6 py-24 md:py-36">
-          <div className="max-w-2xl text-white">
-            <p className="mb-5 text-xs font-bold uppercase tracking-widest text-peach">
+        <div className="relative mx-auto flex w-full max-w-6xl items-end px-6 pb-16 pt-32 md:pb-20 md:pt-40">
+          <div className="max-w-3xl text-white">
+            <p className="mb-6 text-base font-bold uppercase tracking-[0.2em] text-peach sm:text-lg">
               Line &amp; Sandra 🧡 hundetrenere
             </p>
-            <h1 className="font-display text-4xl font-extrabold leading-[1.02] tracking-tight sm:text-5xl md:text-6xl">
-              Vi bygger{" "}
-              <span className="text-orange">fundamentet</span>
-              {" "}for et godt hundeliv.
+            <h1 className="font-display text-5xl font-extrabold leading-[1.02] tracking-tight sm:text-6xl md:text-7xl">
+              Vi bygger <span className="text-orange">fundamentet</span> for et godt hundeliv.
             </h1>
-            <p className="mt-6 max-w-lg text-lg text-white/90">
+            <p className="mt-8 max-w-2xl text-xl text-white/95 sm:text-2xl">
               Positiv trening bygget på modustrening og læringsteori. Kurs,
               privattimer og online opplæring — for valpen, ungdomshunden og
               alt derimellom.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-10 flex flex-wrap gap-3">
               <Link
                 href="/kurs"
-                className="inline-flex items-center gap-2 rounded-full bg-orange px-6 py-3 text-sm font-bold text-white shadow-[0_10px_28px_-10px_var(--orange)] transition-transform hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 rounded-full bg-orange px-7 py-3.5 text-base font-bold text-white shadow-[0_10px_28px_-10px_var(--orange)] transition-transform hover:-translate-y-0.5"
               >
                 Se kommende kurs →
               </Link>
               <Link
                 href="/kontakt"
-                className="rounded-full border-[1.5px] border-white/70 bg-white/10 px-6 py-3 text-sm font-bold text-white backdrop-blur transition-colors hover:bg-white/20"
+                className="rounded-full border-[1.5px] border-white/70 bg-white/10 px-7 py-3.5 text-base font-bold text-white backdrop-blur transition-colors hover:bg-white/20"
               >
                 Book privattime
               </Link>
             </div>
-            <div className="mt-10 flex items-center gap-4 text-sm text-white/85">
-              <div className="flex">
-                <span className="grid h-8 w-8 place-items-center rounded-full border-2 border-white bg-peach text-xs font-bold text-purple-deep">
-                  M
-                </span>
-                <span className="-ml-2 grid h-8 w-8 place-items-center rounded-full border-2 border-white bg-purple-soft text-xs font-bold text-purple-deep">
-                  L
-                </span>
-                <span className="-ml-2 grid h-8 w-8 place-items-center rounded-full border-2 border-white bg-orange-soft text-xs font-bold text-purple-deep">
-                  K
-                </span>
-              </div>
-              <div>
-                <div className="tracking-widest text-orange">★★★★★</div>
-                <div>240+ hundeeiere har vært på kurs</div>
-              </div>
-            </div>
           </div>
-
-          {/* Flytende podcast-kort i høyre-nedre hjørne (som "sticky note" over bildet) */}
-          <div className="mt-12 max-w-xs md:absolute md:bottom-10 md:right-6 md:mt-0">
-            <div className="flex items-start gap-3 rounded-2xl bg-white p-4 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.35)] rotate-[2deg]">
-              <div className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-orange text-lg">
-                🎧
-              </div>
-              <div className="min-w-0">
-                <div className="text-xs font-bold uppercase tracking-widest text-orange">
-                  Podcast
-                </div>
-                <div className="mt-0.5 font-display text-sm font-extrabold text-ink leading-tight">
-                  LÆR OM HUND — ny episode torsdager
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Pote-dekor over overlayet */}
-          <PawIcon
-            className="pointer-events-none absolute right-40 top-14 text-orange opacity-60"
-            size={30}
-          />
-          <PawIcon
-            className="pointer-events-none absolute left-1/2 bottom-20 -rotate-12 text-peach opacity-40"
-            size={22}
-          />
         </div>
       </section>
 
