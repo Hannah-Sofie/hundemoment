@@ -61,15 +61,9 @@ const accentBg = {
 export default function Home() {
   return (
     <div>
-      {/* Hero */}
-      <section
-        className="relative overflow-hidden"
-        style={{
-          background:
-            "radial-gradient(circle at 90% 20%, var(--orange-soft), transparent 55%), radial-gradient(circle at 10% 90%, var(--purple-soft), transparent 55%), var(--surface)",
-        }}
-      >
-        <div className="mx-auto grid max-w-6xl gap-12 px-6 py-20 md:grid-cols-[1.15fr_1fr] md:items-center md:py-28">
+      {/* Hero — luftig hvit, brand lockup som visuelt anker, ikke sirkel */}
+      <section className="relative overflow-hidden bg-surface">
+        <div className="mx-auto grid max-w-6xl gap-16 px-6 py-20 md:grid-cols-[1.2fr_1fr] md:items-center md:py-28">
           <div>
             <p className="mb-5 text-xs font-bold uppercase tracking-widest text-orange">
               Line &amp; Sandra 🧡 hundetrenere
@@ -101,7 +95,7 @@ export default function Home() {
                 href="/kontakt"
                 className="rounded-full border-[1.5px] border-purple px-6 py-3 text-sm font-bold text-purple transition-colors hover:bg-purple-soft"
               >
-                Bok privattime
+                Book privattime
               </Link>
             </div>
             <div className="mt-10 flex items-center gap-4 text-sm text-ink-muted">
@@ -123,33 +117,27 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Brand mark som visuelt anker */}
-          <div className="relative mx-auto flex aspect-square w-full max-w-md items-center justify-center">
-            <div
-              className="absolute inset-8 rounded-full"
-              style={{ background: "var(--purple)" }}
-              aria-hidden
-            />
-            <div
-              className="absolute inset-16 rounded-full opacity-40"
-              style={{ background: "var(--purple-deep)" }}
-              aria-hidden
-            />
-            {/* Roterte paw-prints som dekorasjon */}
+          {/* Visuelt anker — brand lockup uten stor lilla sirkel */}
+          <div className="relative mx-auto flex aspect-[4/3] w-full max-w-md items-center justify-center">
+            {/* Bakgrunn: subtile paw-prints i tilleggsfarger */}
             <PawIcon
-              className="absolute top-4 right-10 text-orange"
-              size={38}
+              className="absolute top-2 right-8 text-orange opacity-70"
+              size={42}
             />
             <PawIcon
-              className="absolute bottom-6 left-4 rotate-[25deg] text-orange opacity-70"
-              size={28}
+              className="absolute bottom-2 left-4 rotate-[25deg] text-purple opacity-50"
+              size={30}
             />
             <PawIcon
-              className="absolute top-16 left-0 -rotate-12 text-peach opacity-60"
-              size={24}
+              className="absolute top-14 left-0 -rotate-12 text-peach opacity-70"
+              size={26}
+            />
+            <PawIcon
+              className="absolute bottom-14 right-0 rotate-[15deg] text-purple opacity-30"
+              size={22}
             />
             <div className="relative z-10 -rotate-3">
-              <BrandLockup size="lg" className="drop-shadow-lg" />
+              <BrandLockup size="lg" />
             </div>
           </div>
         </div>
@@ -199,39 +187,44 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Podcast */}
-      <section
-        className="border-t border-border"
-        style={{
-          background:
-            "linear-gradient(135deg, var(--purple), var(--purple-deep))",
-        }}
-      >
-        <div className="mx-auto grid max-w-6xl gap-10 px-6 py-20 md:grid-cols-[1fr_auto] md:items-center">
-          <div className="text-white">
-            <p className="mb-3 text-xs font-bold uppercase tracking-widest text-peach">
-              🎧 Ny episode hver torsdag
-            </p>
-            <h2 className="font-display text-3xl font-extrabold sm:text-4xl">
-              LÆR OM HUND — vår podcast.
-            </h2>
-            <p className="mt-4 max-w-xl text-lg text-white/85">
-              Vi tar deg med inn i hvordan vi tenker om hund — læringsteori,
-              modustrening og alt vi mener er viktig å snakke om.{" "}
-              <span className="font-bold text-peach">
-                Sesong 1: FUNDAMENTET.
-              </span>
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            <a
-              href="https://open.spotify.com/search/l%C3%A6r%20om%20hund"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-purple-deep shadow-[0_10px_28px_-10px_rgba(0,0,0,0.3)] transition-transform hover:-translate-y-0.5"
-            >
-              🎧 Lytt på Spotify →
-            </a>
+      {/* Podcast — hvit bakgrunn med lilla aksenter, ikke gradient */}
+      <section className="border-t border-border">
+        <div className="mx-auto max-w-6xl px-6 py-20">
+          <div className="rounded-3xl border border-border-strong bg-surface-soft p-10 md:p-14">
+            <div className="grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
+              <div>
+                <p className="mb-3 text-xs font-bold uppercase tracking-widest text-orange">
+                  🎧 Ny episode hver torsdag
+                </p>
+                <h2 className="font-display text-3xl font-extrabold sm:text-4xl">
+                  LÆR OM HUND —{" "}
+                  <span className="text-purple">podcasten vår</span>.
+                </h2>
+                <p className="mt-4 max-w-xl text-lg text-ink-muted">
+                  Vi tar deg med inn i hvordan vi tenker om hund — læringsteori,
+                  modustrening og alt vi mener er viktig å snakke om.{" "}
+                  <span className="font-bold text-ink">
+                    Sesong 1: FUNDAMENTET.
+                  </span>
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                <Link
+                  href="/podcast"
+                  className="rounded-full border-[1.5px] border-purple px-5 py-2.5 text-sm font-bold text-purple transition-colors hover:bg-purple-soft"
+                >
+                  Om podcasten
+                </Link>
+                <a
+                  href="https://open.spotify.com/search/l%C3%A6r%20om%20hund"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full bg-orange px-5 py-2.5 text-sm font-bold text-white shadow-[0_10px_28px_-10px_var(--orange)] transition-transform hover:-translate-y-0.5"
+                >
+                  🎧 Lytt på Spotify →
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>

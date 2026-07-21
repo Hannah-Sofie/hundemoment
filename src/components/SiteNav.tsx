@@ -6,6 +6,7 @@ const navLinks = [
   { href: "/tjenester", label: "Tjenester" },
   { href: "/kurs", label: "Kurs" },
   { href: "/online", label: "Online kurs" },
+  { href: "/podcast", label: "Podcast" },
   { href: "/kontakt", label: "Kontakt" },
 ];
 
@@ -33,7 +34,7 @@ export function SiteNav() {
             href="/kontakt"
             className="hidden rounded-full border border-purple px-4 py-2 text-sm font-bold text-purple transition-colors hover:bg-purple-soft sm:inline-block"
           >
-            Bok time
+            Book time
           </Link>
           <Link
             href="/kurs"
