@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { BrandLockup, PawIcon } from "@/components/PawLogo";
+import { PawIcon } from "@/components/PawLogo";
 
 const services = [
   {
@@ -62,25 +62,40 @@ const accentBg = {
 export default function Home() {
   return (
     <div>
-      {/* Hero — luftig hvit, brand lockup som visuelt anker, ikke sirkel */}
-      <section className="relative overflow-hidden bg-surface">
-        <div className="mx-auto grid max-w-6xl gap-16 px-6 py-20 md:grid-cols-[1.2fr_1fr] md:items-center md:py-28">
-          <div>
-            <p className="mb-5 text-xs font-bold uppercase tracking-widest text-orange">
+      {/* Hero — foto som full-bleed bakgrunn, tekst oppå */}
+      <section className="relative overflow-hidden">
+        {/* Bakgrunnsbilde */}
+        <div className="absolute inset-0">
+          <Image
+            src="/line-og-sandra.jpg"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-[center_30%]"
+          />
+          {/* Overlay: lilla-gradient som er tett til venstre for lesbarhet, lettere til høyre der ansiktene er */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(90deg, rgba(31,16,53,0.85) 0%, rgba(74,31,130,0.7) 35%, rgba(74,31,130,0.25) 65%, rgba(74,31,130,0.1) 100%)",
+            }}
+            aria-hidden
+          />
+        </div>
+
+        <div className="relative mx-auto max-w-6xl px-6 py-24 md:py-36">
+          <div className="max-w-2xl text-white">
+            <p className="mb-5 text-xs font-bold uppercase tracking-widest text-peach">
               Line &amp; Sandra 🧡 hundetrenere
             </p>
-            <h1 className="font-display text-4xl font-extrabold leading-[1.02] tracking-tight text-ink sm:text-5xl md:text-6xl">
+            <h1 className="font-display text-4xl font-extrabold leading-[1.02] tracking-tight sm:text-5xl md:text-6xl">
               Vi bygger{" "}
-              <span className="relative inline-block text-orange">
-                fundamentet
-                <span
-                  className="absolute inset-x-0 -z-10 h-3 rounded-xl bg-peach opacity-60"
-                  style={{ bottom: "0.25rem" }}
-                />
-              </span>{" "}
-              for et godt hundeliv.
+              <span className="text-orange">fundamentet</span>
+              {" "}for et godt hundeliv.
             </h1>
-            <p className="mt-6 max-w-lg text-lg text-ink-muted">
+            <p className="mt-6 max-w-lg text-lg text-white/90">
               Positiv trening bygget på modustrening og læringsteori. Kurs,
               privattimer og online opplæring — for valpen, ungdomshunden og
               alt derimellom.
@@ -94,20 +109,20 @@ export default function Home() {
               </Link>
               <Link
                 href="/kontakt"
-                className="rounded-full border-[1.5px] border-purple px-6 py-3 text-sm font-bold text-purple transition-colors hover:bg-purple-soft"
+                className="rounded-full border-[1.5px] border-white/70 bg-white/10 px-6 py-3 text-sm font-bold text-white backdrop-blur transition-colors hover:bg-white/20"
               >
                 Book privattime
               </Link>
             </div>
-            <div className="mt-10 flex items-center gap-4 text-sm text-ink-muted">
+            <div className="mt-10 flex items-center gap-4 text-sm text-white/85">
               <div className="flex">
-                <span className="grid h-8 w-8 place-items-center rounded-full border-2 border-surface bg-peach text-xs font-bold text-purple-deep">
+                <span className="grid h-8 w-8 place-items-center rounded-full border-2 border-white bg-peach text-xs font-bold text-purple-deep">
                   M
                 </span>
-                <span className="-ml-2 grid h-8 w-8 place-items-center rounded-full border-2 border-surface bg-purple-soft text-xs font-bold text-purple-deep">
+                <span className="-ml-2 grid h-8 w-8 place-items-center rounded-full border-2 border-white bg-purple-soft text-xs font-bold text-purple-deep">
                   L
                 </span>
-                <span className="-ml-2 grid h-8 w-8 place-items-center rounded-full border-2 border-surface bg-orange-soft text-xs font-bold text-purple-deep">
+                <span className="-ml-2 grid h-8 w-8 place-items-center rounded-full border-2 border-white bg-orange-soft text-xs font-bold text-purple-deep">
                   K
                 </span>
               </div>
@@ -118,78 +133,32 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Collage-hero: foto + floating brand-stamp + podcast-badge + pote-dekor */}
-          <div className="relative mx-auto w-full max-w-lg py-6">
-            {/* Bakgrunn: myk lilla blob bak fotoet */}
-            <div
-              className="absolute -right-6 -top-6 h-64 w-64 rounded-full opacity-60 blur-2xl"
-              style={{ background: "var(--purple-soft)" }}
-              aria-hidden
-            />
-            <div
-              className="absolute -bottom-6 -left-6 h-48 w-48 rounded-full opacity-50 blur-2xl"
-              style={{ background: "var(--orange-soft)" }}
-              aria-hidden
-            />
-
-            {/* Hovedbilde */}
-            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[2rem] shadow-[0_30px_60px_-20px_rgba(94,47,206,0.4)] sm:aspect-[4/3]">
-              <Image
-                src="/line-og-sandra.jpg"
-                alt="Line og Sandra med hundene sine foran rhododendron"
-                fill
-                priority
-                sizes="(min-width: 768px) 40vw, 100vw"
-                className="object-cover"
-              />
-              {/* Subtil gradient nederst for kontrast mot flytende kort */}
-              <div
-                className="absolute inset-0 bg-gradient-to-t from-black/25 to-transparent"
-                aria-hidden
-              />
-            </div>
-
-            {/* Floating brand-stamp øverst til venstre */}
-            <div className="absolute -left-4 top-6 z-10 rotate-[-8deg]">
-              <div className="rounded-2xl bg-surface p-3 shadow-[0_10px_30px_-10px_rgba(94,47,206,0.35)]">
-                <BrandLockup size="sm" />
+          {/* Flytende podcast-kort i høyre-nedre hjørne (som "sticky note" over bildet) */}
+          <div className="mt-12 max-w-xs md:absolute md:bottom-10 md:right-6 md:mt-0">
+            <div className="flex items-start gap-3 rounded-2xl bg-white p-4 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.35)] rotate-[2deg]">
+              <div className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-orange text-lg">
+                🎧
               </div>
-            </div>
-
-            {/* Floating podcast-badge nederst til høyre */}
-            <div className="absolute -bottom-4 -right-2 z-10 max-w-[240px] rotate-[3deg]">
-              <div className="flex items-start gap-3 rounded-2xl bg-surface p-4 shadow-[0_10px_30px_-10px_rgba(94,47,206,0.35)]">
-                <div className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-orange text-lg">
-                  🎧
+              <div className="min-w-0">
+                <div className="text-xs font-bold uppercase tracking-widest text-orange">
+                  Podcast
                 </div>
-                <div className="min-w-0">
-                  <div className="text-xs font-bold uppercase tracking-widest text-orange">
-                    Podcast
-                  </div>
-                  <div className="mt-0.5 font-display text-sm font-extrabold text-ink leading-tight">
-                    LÆR OM HUND — ny episode torsdager
-                  </div>
+                <div className="mt-0.5 font-display text-sm font-extrabold text-ink leading-tight">
+                  LÆR OM HUND — ny episode torsdager
                 </div>
               </div>
             </div>
-
-            {/* Floating trainer-tag øverst til høyre (over bildet) */}
-            <div className="absolute -right-3 top-16 z-10 -rotate-[4deg]">
-              <div className="rounded-full bg-purple px-4 py-2 text-xs font-bold text-white shadow-[0_10px_30px_-10px_var(--purple)]">
-                Line &amp; Sandra 🧡
-              </div>
-            </div>
-
-            {/* Pote-dekor rundt */}
-            <PawIcon
-              className="absolute -top-2 right-16 text-orange"
-              size={28}
-            />
-            <PawIcon
-              className="absolute bottom-16 -left-6 -rotate-12 text-peach"
-              size={22}
-            />
           </div>
+
+          {/* Pote-dekor over overlayet */}
+          <PawIcon
+            className="pointer-events-none absolute right-40 top-14 text-orange opacity-60"
+            size={30}
+          />
+          <PawIcon
+            className="pointer-events-none absolute left-1/2 bottom-20 -rotate-12 text-peach opacity-40"
+            size={22}
+          />
         </div>
       </section>
 
