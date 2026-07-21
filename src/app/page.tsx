@@ -1,5 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
-import { BrandLockup, PawIcon } from "@/components/PawLogo";
+import { PawIcon } from "@/components/PawLogo";
 
 const services = [
   {
@@ -117,27 +118,25 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Visuelt anker — brand lockup uten stor lilla sirkel */}
-          <div className="relative mx-auto flex aspect-[4/3] w-full max-w-md items-center justify-center">
-            {/* Bakgrunn: subtile paw-prints i tilleggsfarger */}
+          {/* Bilde av Line og Sandra med hundene */}
+          <div className="relative mx-auto w-full max-w-md">
             <PawIcon
-              className="absolute top-2 right-8 text-orange opacity-70"
-              size={42}
+              className="absolute -top-6 -right-4 z-10 rotate-12 text-orange"
+              size={44}
             />
             <PawIcon
-              className="absolute bottom-2 left-4 rotate-[25deg] text-purple opacity-50"
-              size={30}
+              className="absolute -bottom-4 -left-4 z-10 -rotate-12 text-purple opacity-70"
+              size={36}
             />
-            <PawIcon
-              className="absolute top-14 left-0 -rotate-12 text-peach opacity-70"
-              size={26}
-            />
-            <PawIcon
-              className="absolute bottom-14 right-0 rotate-[15deg] text-purple opacity-30"
-              size={22}
-            />
-            <div className="relative z-10 -rotate-3">
-              <BrandLockup size="lg" />
+            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[2rem] shadow-[0_24px_60px_-20px_rgba(94,47,206,0.35)]">
+              <Image
+                src="/line-og-sandra.jpg"
+                alt="Line og Sandra med hundene sine foran rhododendron"
+                fill
+                priority
+                sizes="(min-width: 768px) 40vw, 100vw"
+                className="object-cover"
+              />
             </div>
           </div>
         </div>
