@@ -73,31 +73,31 @@ export default function Home() {
             sizes="100vw"
             className="object-cover object-[center_25%]"
           />
-          {/* Overlay: vertikal fade nedenfra — beholder ansikter fri, gir tekst-lesbarhet nederst */}
+          {/* Subtil helhets-overlay for stemning (frosted-panelet gjør lesejobben) */}
           <div
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(180deg, rgba(31,16,53,0) 0%, rgba(31,16,53,0.15) 40%, rgba(31,16,53,0.75) 80%, rgba(31,16,53,0.92) 100%)",
+                "linear-gradient(180deg, rgba(31,16,53,0) 40%, rgba(31,16,53,0.35) 100%)",
             }}
             aria-hidden
           />
         </div>
 
-        <div className="relative mx-auto flex w-full max-w-6xl items-end px-6 pb-16 pt-32 md:pb-20 md:pt-40">
-          <div className="max-w-3xl text-white">
-            <p className="mb-6 text-base font-bold uppercase tracking-[0.2em] text-peach sm:text-lg">
+        <div className="relative mx-auto flex w-full max-w-6xl items-end px-6 pb-14 pt-32 md:pb-20 md:pt-40">
+          <div className="max-w-3xl rounded-3xl border border-white/15 bg-black/40 p-8 text-white shadow-[0_30px_60px_-20px_rgba(0,0,0,0.5)] backdrop-blur-md md:p-12">
+            <p className="mb-5 text-base font-bold uppercase tracking-[0.2em] text-peach sm:text-lg">
               Line &amp; Sandra 🧡 hundetrenere
             </p>
             <h1 className="font-display text-5xl font-extrabold leading-[1.02] tracking-tight sm:text-6xl md:text-7xl">
               Vi bygger <span className="text-orange">fundamentet</span> for et godt hundeliv.
             </h1>
-            <p className="mt-8 max-w-2xl text-xl text-white/95 sm:text-2xl">
+            <p className="mt-7 max-w-2xl text-xl text-white/95 sm:text-2xl">
               Positiv trening bygget på modustrening og læringsteori. Kurs,
               privattimer og online opplæring — for valpen, ungdomshunden og
               alt derimellom.
             </p>
-            <div className="mt-10 flex flex-wrap gap-3">
+            <div className="mt-9 flex flex-wrap gap-3">
               <Link
                 href="/kurs"
                 className="inline-flex items-center gap-2 rounded-full bg-orange px-7 py-3.5 text-base font-bold text-white shadow-[0_10px_28px_-10px_var(--orange)] transition-transform hover:-translate-y-0.5"
@@ -106,7 +106,7 @@ export default function Home() {
               </Link>
               <Link
                 href="/kontakt"
-                className="rounded-full border-[1.5px] border-white/70 bg-white/10 px-7 py-3.5 text-base font-bold text-white backdrop-blur transition-colors hover:bg-white/20"
+                className="rounded-full border-[1.5px] border-white/80 bg-white/10 px-7 py-3.5 text-base font-bold text-white transition-colors hover:bg-white/20"
               >
                 Book privattime
               </Link>
