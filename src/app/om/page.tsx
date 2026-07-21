@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Om oss",
   description:
-    "Hundemoment er en Oslo-basert hundetrener som jobber med positiv trening for hverdagen.",
+    "Hundemoment drives av Line og Sandra — to hundetrenere med lidenskap for læringsteori og modustrening.",
 };
 
 export default function OmPage() {
@@ -17,15 +17,14 @@ export default function OmPage() {
       >
         <div className="mx-auto max-w-4xl px-6 py-20">
           <p className="mb-4 text-xs font-bold uppercase tracking-widest text-orange">
-            Om Hundemoment
+            Om oss 🧡
           </p>
           <h1 className="font-display text-4xl font-extrabold sm:text-5xl">
-            Trening som starter med tillit.
+            Line &amp; Sandra — to trenere, én filosofi.
           </h1>
           <p className="mt-6 max-w-2xl text-lg text-ink-muted">
-            Hundemoment er drevet av lidenskap for gode hundeliv. Vi bruker
-            positive metoder som fungerer i den ekte hverdagen — ikke bare på
-            kursplassen.
+            Vi tror på trening som varer. Positive metoder, tydelig
+            kommunikasjon og respekt for hunden er kjernen i alt vi gjør.
           </p>
         </div>
       </section>
@@ -34,12 +33,12 @@ export default function OmPage() {
         <div className="grid gap-10 md:grid-cols-2">
           <div>
             <h2 className="mb-4 font-display text-2xl font-extrabold">
-              Vår filosofi
+              Filosofien
             </h2>
             <p className="text-ink-muted">
-              Vi bygger på moderne, forskningsbasert hundetrening. Belønning,
-              tydelig kommunikasjon og respekt for hundens behov er kjernen i
-              alt vi gjør.
+              Vi jobber med <strong className="text-ink">modustrening</strong>{" "}
+              og læringsteori. I stedet for å bare se på hva hunden gjør, leter
+              vi etter grunnen bak atferden — og hvilken følelse den kommer fra.
             </p>
           </div>
           <div>
@@ -47,9 +46,9 @@ export default function OmPage() {
               For hvem?
             </h2>
             <p className="text-ink-muted">
-              Fra ivrige valper til erfarne turkompiser. Vi hjelper både
-              førstegangseiere som trenger grunnleggende trening, og de som vil
-              utfordre seg videre med triks eller nose work.
+              Fra ivrige valper til erfarne turkompiser. Både førstegangseiere
+              som trenger grunnleggende trening, og de som vil dypere inn i
+              samspillet med hunden sin.
             </p>
           </div>
           <div>
@@ -63,11 +62,12 @@ export default function OmPage() {
           </div>
           <div>
             <h2 className="mb-4 font-display text-2xl font-extrabold">
-              Sertifisering
+              LÆR OM HUND
             </h2>
             <p className="text-ink-muted">
-              Instruktøren er utdannet gjennom anerkjente hundefaglige
-              utdanninger og oppdaterer seg kontinuerlig.
+              Podcasten vår slippes ny hver torsdag på Spotify. Sesong 1 heter{" "}
+              <strong className="text-ink">FUNDAMENTET</strong> — det vi mener
+              alle hundeeiere burde ha kunnskap om.
             </p>
           </div>
         </div>

@@ -8,16 +8,16 @@
   --surface-soft: #fff9f1;
   --ink: #1f1035;
   --ink-muted: #6b5b7a;
-  --purple: #6b2fba;
-  --purple-deep: #4a1f82;
-  --purple-soft: #f1e6fa;
+  --purple: #884ff6;
+  --purple-deep: #5e2fce;
+  --purple-soft: #eee5ff;
   --orange: #ff6b35;
   --orange-soft: #ffe3d3;
   --peach: #ffc896;
-  --border: rgba(107, 47, 186, 0.14);
-  --border-strong: rgba(107, 47, 186, 0.24);
-  --shadow: 0 24px 60px -24px rgba(75, 30, 130, 0.22);
-  --shadow-sm: 0 6px 20px -8px rgba(75, 30, 130, 0.18);
+  --border: rgba(136, 79, 246, 0.14);
+  --border-strong: rgba(136, 79, 246, 0.28);
+  --shadow: 0 24px 60px -24px rgba(94, 47, 206, 0.28);
+  --shadow-sm: 0 6px 20px -8px rgba(94, 47, 206, 0.22);
 }
 
 @media (prefers-color-scheme: dark) {

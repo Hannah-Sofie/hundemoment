@@ -1,25 +1,25 @@
 import Link from "next/link";
-import { HappyDog } from "@/components/HappyDog";
+import { BrandLockup, PawIcon } from "@/components/PawLogo";
 
 const services = [
   {
     title: "Valpekurs",
     description:
-      "Grunnlaget for et godt hundeliv. Sosialisering, kall, kobletrening og god start i familielivet.",
+      "Grunnlaget for et godt hundeliv. Sosialisering, kall og de første gode vanene i familien.",
     price: "Fra 3 200 kr",
     accent: "orange" as const,
   },
   {
     title: "Grunnkurs",
     description:
-      "For hunder fra 6 måneder. Vi jobber med lydighet, passivitet og hverdagsutfordringer.",
+      "For hunder fra 6 måneder. Lydighet, passivitet og hverdagsutfordringer — bygget på læringsteori.",
     price: "Fra 3 500 kr",
     accent: "purple" as const,
   },
   {
     title: "Privattimer",
     description:
-      "Skreddersydd oppfølging hjemme eller på tur. For konkrete utfordringer og rask fremgang.",
+      "Skreddersydd oppfølging hjemme eller på tur. Vi finner grunnen bak atferden, ikke bare symptomene.",
     price: "850 kr / time",
     accent: "peach" as const,
   },
@@ -45,7 +45,7 @@ const upcoming = [
   {
     day: "02",
     month: "Sep",
-    title: "Trikstrening for viderekomne",
+    title: "Modustrening for viderekomne",
     meta: "Lørdager 11:00 · Sagene",
     spots: "2 plasser igjen",
     pillColor: "bg-purple-deep",
@@ -69,26 +69,26 @@ export default function Home() {
             "radial-gradient(circle at 90% 20%, var(--orange-soft), transparent 55%), radial-gradient(circle at 10% 90%, var(--purple-soft), transparent 55%), var(--surface)",
         }}
       >
-        <div className="mx-auto grid max-w-6xl gap-10 px-6 py-20 md:grid-cols-[1.15fr_1fr] md:items-center md:py-28">
+        <div className="mx-auto grid max-w-6xl gap-12 px-6 py-20 md:grid-cols-[1.15fr_1fr] md:items-center md:py-28">
           <div>
-            <p className="mb-4 text-xs font-bold uppercase tracking-widest text-orange">
-              Positiv trening · Oslo &amp; online
+            <p className="mb-5 text-xs font-bold uppercase tracking-widest text-orange">
+              Line &amp; Sandra 🧡 hundetrenere
             </p>
             <h1 className="font-display text-4xl font-extrabold leading-[1.02] tracking-tight text-ink sm:text-5xl md:text-6xl">
-              Sammen bygger vi trygge,{" "}
+              Vi bygger{" "}
               <span className="relative inline-block text-orange">
-                glade hunder
+                fundamentet
                 <span
                   className="absolute inset-x-0 -z-10 h-3 rounded-xl bg-peach opacity-60"
                   style={{ bottom: "0.25rem" }}
                 />
-              </span>
-              .
+              </span>{" "}
+              for et godt hundeliv.
             </h1>
             <p className="mt-6 max-w-lg text-lg text-ink-muted">
-              Kurs, privattimer og online opplæring for valpen, ungdomshunden og
-              den erfarne firbeinte. Trening som fungerer i hverdagen — for hund
-              og eier.
+              Positiv trening bygget på modustrening og læringsteori. Kurs,
+              privattimer og online opplæring — for valpen, ungdomshunden og
+              alt derimellom.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
@@ -118,11 +118,40 @@ export default function Home() {
               </div>
               <div>
                 <div className="tracking-widest text-orange">★★★★★</div>
-                <div>240+ fornøyde hundeeiere</div>
+                <div>240+ hundeeiere har vært på kurs</div>
               </div>
             </div>
           </div>
-          <HappyDog className="mx-auto w-full max-w-sm" />
+
+          {/* Brand mark som visuelt anker */}
+          <div className="relative mx-auto flex aspect-square w-full max-w-md items-center justify-center">
+            <div
+              className="absolute inset-8 rounded-full"
+              style={{ background: "var(--purple)" }}
+              aria-hidden
+            />
+            <div
+              className="absolute inset-16 rounded-full opacity-40"
+              style={{ background: "var(--purple-deep)" }}
+              aria-hidden
+            />
+            {/* Roterte paw-prints som dekorasjon */}
+            <PawIcon
+              className="absolute top-4 right-10 text-orange"
+              size={38}
+            />
+            <PawIcon
+              className="absolute bottom-6 left-4 rotate-[25deg] text-orange opacity-70"
+              size={28}
+            />
+            <PawIcon
+              className="absolute top-16 left-0 -rotate-12 text-peach opacity-60"
+              size={24}
+            />
+            <div className="relative z-10 -rotate-3">
+              <BrandLockup size="lg" className="drop-shadow-lg" />
+            </div>
+          </div>
         </div>
       </section>
 
@@ -135,7 +164,7 @@ export default function Home() {
                 Tilbud
               </p>
               <h2 className="max-w-md font-display text-3xl font-extrabold sm:text-4xl">
-                Kurs og trening som passer dere.
+                Trening som passer dere.
               </h2>
             </div>
             <Link
@@ -166,6 +195,43 @@ export default function Home() {
                 </p>
               </article>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Podcast */}
+      <section
+        className="border-t border-border"
+        style={{
+          background:
+            "linear-gradient(135deg, var(--purple), var(--purple-deep))",
+        }}
+      >
+        <div className="mx-auto grid max-w-6xl gap-10 px-6 py-20 md:grid-cols-[1fr_auto] md:items-center">
+          <div className="text-white">
+            <p className="mb-3 text-xs font-bold uppercase tracking-widest text-peach">
+              🎧 Ny episode hver torsdag
+            </p>
+            <h2 className="font-display text-3xl font-extrabold sm:text-4xl">
+              LÆR OM HUND — vår podcast.
+            </h2>
+            <p className="mt-4 max-w-xl text-lg text-white/85">
+              Vi tar deg med inn i hvordan vi tenker om hund — læringsteori,
+              modustrening og alt vi mener er viktig å snakke om.{" "}
+              <span className="font-bold text-peach">
+                Sesong 1: FUNDAMENTET.
+              </span>
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <a
+              href="https://open.spotify.com/search/l%C3%A6r%20om%20hund"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-purple-deep shadow-[0_10px_28px_-10px_rgba(0,0,0,0.3)] transition-transform hover:-translate-y-0.5"
+            >
+              🎧 Lytt på Spotify →
+            </a>
           </div>
         </div>
       </section>
@@ -215,32 +281,6 @@ export default function Home() {
               </Link>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* CTA band */}
-      <section
-        className="border-t border-border"
-        style={{
-          background:
-            "linear-gradient(135deg, var(--purple), var(--purple-deep))",
-        }}
-      >
-        <div className="mx-auto flex max-w-6xl flex-col items-start gap-6 px-6 py-16 text-white md:flex-row md:items-center md:justify-between">
-          <div>
-            <p className="mb-2 text-xs font-bold uppercase tracking-widest text-peach">
-              Trening du kan følge når du vil
-            </p>
-            <h2 className="font-display text-3xl font-extrabold sm:text-4xl">
-              Online kurs — se, øv og repeter.
-            </h2>
-          </div>
-          <Link
-            href="/online"
-            className="rounded-full bg-orange px-6 py-3 text-sm font-bold text-white shadow-[0_10px_28px_-10px_var(--orange)] transition-transform hover:-translate-y-0.5"
-          >
-            Utforsk online kurs →
-          </Link>
         </div>
       </section>
     </div>
