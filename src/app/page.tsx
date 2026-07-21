@@ -73,19 +73,22 @@ export default function Home() {
             sizes="100vw"
             className="object-cover object-[center_25%]"
           />
-          {/* Subtil helhets-overlay for stemning (frosted-panelet gjør lesejobben) */}
+          {/* Myk lilla-wash over hele bildet — jevn stemning uten å skjule ansikter */}
           <div
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(180deg, rgba(31,16,53,0) 40%, rgba(31,16,53,0.35) 100%)",
+                "linear-gradient(180deg, rgba(74,31,130,0.35) 0%, rgba(74,31,130,0.55) 100%)",
             }}
             aria-hidden
           />
         </div>
 
-        <div className="relative mx-auto flex w-full max-w-6xl items-end px-6 pb-14 pt-32 md:pb-20 md:pt-40">
-          <div className="max-w-3xl rounded-3xl border border-white/15 bg-black/40 p-8 text-white shadow-[0_30px_60px_-20px_rgba(0,0,0,0.5)] backdrop-blur-md md:p-12">
+        <div className="relative mx-auto flex w-full max-w-6xl items-end px-6 pb-16 pt-32 md:pb-20 md:pt-40">
+          <div
+            className="max-w-3xl text-white"
+            style={{ textShadow: "0 2px 12px rgba(31,16,53,0.55)" }}
+          >
             <p className="mb-5 text-base font-bold uppercase tracking-[0.2em] text-peach sm:text-lg">
               Line &amp; Sandra 🧡 hundetrenere
             </p>
@@ -97,7 +100,10 @@ export default function Home() {
               privattimer og online opplæring — for valpen, ungdomshunden og
               alt derimellom.
             </p>
-            <div className="mt-9 flex flex-wrap gap-3">
+            <div
+              className="mt-9 flex flex-wrap gap-3"
+              style={{ textShadow: "none" }}
+            >
               <Link
                 href="/kurs"
                 className="inline-flex items-center gap-2 rounded-full bg-orange px-7 py-3.5 text-base font-bold text-white shadow-[0_10px_28px_-10px_var(--orange)] transition-transform hover:-translate-y-0.5"
@@ -106,7 +112,7 @@ export default function Home() {
               </Link>
               <Link
                 href="/kontakt"
-                className="rounded-full border-[1.5px] border-white/80 bg-white/10 px-7 py-3.5 text-base font-bold text-white transition-colors hover:bg-white/20"
+                className="rounded-full border-[1.5px] border-white/80 bg-white/15 px-7 py-3.5 text-base font-bold text-white backdrop-blur-sm transition-colors hover:bg-white/25"
               >
                 Book privattime
               </Link>
