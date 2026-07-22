@@ -3,6 +3,7 @@ import Link from "next/link";
 import { services } from "@/lib/services";
 import { courses } from "@/lib/courses";
 import { CourseCard } from "@/components/CourseCard";
+import { TestimonialCarousel } from "@/components/TestimonialCarousel";
 
 const upcomingCourses = courses.slice(0, 3);
 
@@ -95,16 +96,21 @@ const faqAccentBg = {
   peach: "bg-peach/40",
 } as const;
 
-function Fact({ number, label }: { number: string; label: string }) {
+function SpotifyMark({ small }: { small?: boolean }) {
+  const size = small ? 16 : "100%";
   return (
-    <div>
-      <div className="font-display text-3xl font-extrabold text-purple sm:text-4xl">
-        {number}
-      </div>
-      <div className="mt-1 text-sm text-ink-muted">{label}</div>
-    </div>
+    <svg
+      viewBox="0 0 24 24"
+      width={size}
+      height={size}
+      fill="currentColor"
+      aria-hidden
+    >
+      <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.42 1.56-.301.421-1.021.599-1.561.3z" />
+    </svg>
   );
 }
+
 
 export default function Home() {
   return (
@@ -121,12 +127,12 @@ export default function Home() {
             sizes="100vw"
             className="object-cover object-[center_25%]"
           />
-          {/* Lettere lilla-wash — beholder ansikter tydelig */}
+          {/* Veldig lett lilla-wash — bildet skinner gjennom */}
           <div
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(180deg, rgba(74,31,130,0.2) 0%, rgba(74,31,130,0.4) 100%)",
+                "linear-gradient(180deg, rgba(74,31,130,0.12) 0%, rgba(74,31,130,0.28) 100%)",
             }}
             aria-hidden
           />
@@ -213,12 +219,6 @@ export default function Home() {
                 bare endre atferd — vi vil forstå den, og finne grunnen bak det
                 hunden gjør.
               </p>
-
-              <div className="mt-8 grid grid-cols-3 gap-4 sm:gap-6">
-                <Fact number="240+" label="hunder trent" />
-                <Fact number="6" label="ulike kurstyper" />
-                <Fact number="100%" label="positiv metodikk" />
-              </div>
 
               <Link
                 href="/om"
@@ -317,12 +317,30 @@ export default function Home() {
       {/* Podcast — hvit bakgrunn med lilla aksenter, ikke gradient */}
       <section className="border-t border-border">
         <div className="mx-auto max-w-6xl px-6 py-20">
-          <div className="rounded-3xl border border-border-strong bg-surface-soft p-10 md:p-14">
-            <div className="grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
+          <div className="relative overflow-hidden rounded-3xl border border-border-strong bg-surface-soft p-10 md:p-14">
+            {/* Spotify-logo som stort dekorativt element */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -right-6 -top-6 h-40 w-40 opacity-10 sm:h-56 sm:w-56"
+              style={{ color: "#1DB954" }}
+            >
+              <SpotifyMark />
+            </div>
+
+            <div className="relative grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
               <div>
-                <p className="mb-3 text-xs font-bold uppercase tracking-widest text-orange">
-                  🎧 Ny episode hver torsdag
-                </p>
+                <div className="mb-3 flex items-center gap-2">
+                  <span
+                    className="grid h-8 w-8 place-items-center rounded-full text-white"
+                    style={{ background: "#1DB954" }}
+                    aria-hidden
+                  >
+                    <SpotifyMark small />
+                  </span>
+                  <p className="text-xs font-bold uppercase tracking-widest text-orange">
+                    Ny episode hver torsdag
+                  </p>
+                </div>
                 <h2 className="font-display text-3xl font-extrabold sm:text-4xl">
                   LÆR OM HUND —{" "}
                   <span className="text-purple">podcasten vår</span>.
@@ -346,9 +364,11 @@ export default function Home() {
                   href="https://open.spotify.com/search/l%C3%A6r%20om%20hund"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full bg-orange px-5 py-2.5 text-sm font-bold text-white shadow-[0_10px_28px_-10px_var(--orange)] transition-transform hover:-translate-y-0.5"
+                  className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold text-white shadow-[0_10px_28px_-10px_#1DB954] transition-transform hover:-translate-y-0.5"
+                  style={{ background: "#1DB954" }}
                 >
-                  🎧 Lytt på Spotify →
+                  <SpotifyMark small />
+                  Lytt på Spotify →
                 </a>
               </div>
             </div>
@@ -367,33 +387,7 @@ export default function Home() {
               Ord fra dem som har trent med oss.
             </h2>
           </div>
-          <div className="grid gap-5 md:grid-cols-3">
-            {testimonials.map((t) => (
-              <figure
-                key={t.name}
-                className="flex h-full flex-col rounded-3xl border border-border bg-surface-soft p-6"
-              >
-                <div className="mb-3 tracking-widest text-orange">★★★★★</div>
-                <blockquote className="flex-1 text-ink">
-                  <p>“{t.quote}”</p>
-                </blockquote>
-                <figcaption className="mt-6 flex items-center gap-3 border-t border-border pt-4">
-                  <span
-                    className={`grid h-10 w-10 place-items-center rounded-full font-display text-sm font-extrabold text-purple-deep ${t.avatarBg}`}
-                    aria-hidden
-                  >
-                    {t.initial}
-                  </span>
-                  <div className="text-sm">
-                    <div className="font-bold text-ink">{t.name}</div>
-                    <div className="text-ink-muted">
-                      {t.dog} · {t.service}
-                    </div>
-                  </div>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
+          <TestimonialCarousel testimonials={testimonials} />
         </div>
       </section>
 

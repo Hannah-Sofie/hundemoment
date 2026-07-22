@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BrandMark } from "./PawLogo";
+import { BrandMark, PawIcon } from "./PawLogo";
 
 const utforsk = [
   { href: "/om", label: "Om oss" },
@@ -41,12 +41,14 @@ const sosiale = [
 const trenere = [
   {
     navn: "Line",
+    sted: "Gjøvik",
     epost: "line@hundemoment.no",
     telefon: "+47 000 00 000",
     telefonHref: "tel:+4700000000",
   },
   {
     navn: "Sandra",
+    sted: "Oslo",
     epost: "sandra@hundemoment.no",
     telefon: "+47 000 00 000",
     telefonHref: "tel:+4700000000",
@@ -55,107 +57,156 @@ const trenere = [
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-border bg-surface-soft">
-      <div className="mx-auto grid max-w-6xl gap-12 px-6 py-16 md:grid-cols-[1.2fr_1fr_1.5fr]">
-        {/* Kolonne 1: Brand + intro + sosiale */}
-        <div>
-          <BrandMark />
-          <p className="mt-4 max-w-sm text-base text-ink-muted">
-            Positiv hundetrening for hverdagen. Kurs, privattimer og online
-            opplæring for hele hundelivet.
-          </p>
-          <div className="mt-8">
-            <h3 className="mb-3 text-sm font-bold uppercase tracking-widest text-ink-muted">
-              Følg oss
+    <footer>
+      {/* CTA-band øverst — leken invitasjon */}
+      <section
+        className="relative overflow-hidden border-t border-border"
+        style={{
+          background:
+            "linear-gradient(135deg, var(--orange) 0%, #ff8c5a 100%)",
+        }}
+      >
+        <PawIcon
+          className="pointer-events-none absolute -left-4 top-6 rotate-[-20deg] text-white opacity-20"
+          size={80}
+        />
+        <PawIcon
+          className="pointer-events-none absolute right-8 -bottom-2 rotate-[15deg] text-white opacity-20"
+          size={64}
+        />
+        <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 px-6 py-16 text-center text-white sm:flex-row sm:justify-between sm:text-left">
+          <div>
+            <p className="mb-2 text-xs font-bold uppercase tracking-widest text-peach">
+              🐾 Klar til å begynne?
+            </p>
+            <h3 className="font-display text-3xl font-extrabold sm:text-4xl">
+              Vi gleder oss til å møte deg og hunden din.
             </h3>
-            <div className="flex flex-wrap gap-2">
-              {sosiale.map((s) => (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={s.label}
-                  className="grid h-11 w-11 place-items-center rounded-full bg-surface text-ink transition hover:-translate-y-0.5 hover:bg-purple hover:text-white"
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <Link
+              href="/kurs"
+              className="rounded-full bg-white px-6 py-3 text-base font-bold text-orange shadow-[0_10px_28px_-10px_rgba(0,0,0,0.2)] transition-transform hover:-translate-y-0.5"
+            >
+              Se kurs →
+            </Link>
+            <Link
+              href="/kontakt"
+              className="rounded-full border-[1.5px] border-white/70 bg-white/10 px-6 py-3 text-base font-bold text-white backdrop-blur transition-colors hover:bg-white/20"
+            >
+              Kontakt oss
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Hovedfooter */}
+      <div className="bg-surface-soft">
+        <div className="mx-auto grid max-w-6xl gap-12 px-6 py-16 md:grid-cols-[1.2fr_1fr_1.5fr]">
+          {/* Kolonne 1: Brand + intro + sosiale */}
+          <div>
+            <BrandMark />
+            <p className="mt-4 max-w-sm text-base text-ink-muted">
+              Positiv hundetrening for hverdagen. Kurs, privattimer og online
+              opplæring for hele hundelivet.
+            </p>
+            <div className="mt-8">
+              <h3 className="mb-3 text-sm font-bold uppercase tracking-widest text-ink-muted">
+                Følg oss
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {sosiale.map((s) => (
+                  <a
+                    key={s.label}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={s.label}
+                    className="grid h-11 w-11 place-items-center rounded-full bg-surface text-ink shadow-[var(--shadow-sm)] transition hover:-translate-y-0.5 hover:bg-purple hover:text-white"
+                  >
+                    <s.icon />
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Kolonne 2: Utforsk */}
+          <div>
+            <h3 className="mb-4 text-sm font-bold uppercase tracking-widest text-ink-muted">
+              Utforsk
+            </h3>
+            <ul className="flex flex-col gap-3 text-base">
+              {utforsk.map((l) => (
+                <li key={l.href}>
+                  <Link
+                    href={l.href}
+                    className="text-ink transition-colors hover:text-purple"
+                  >
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Kolonne 3: Kontakt Line og Sandra */}
+          <div>
+            <h3 className="mb-4 text-sm font-bold uppercase tracking-widest text-ink-muted">
+              Ta kontakt
+            </h3>
+            <div className="grid gap-6 sm:grid-cols-2">
+              {trenere.map((t) => (
+                <div
+                  key={t.navn}
+                  className="rounded-2xl border border-border bg-surface p-5"
                 >
-                  <s.icon />
-                </a>
+                  <div className="mb-3 flex items-center justify-between gap-2">
+                    <p className="font-display text-lg font-extrabold text-ink">
+                      {t.navn}
+                    </p>
+                    <span className="inline-flex items-center gap-1 rounded-full bg-purple-soft px-2.5 py-1 text-xs font-bold text-purple-deep">
+                      📍 {t.sted}
+                    </span>
+                  </div>
+                  <ul className="flex flex-col gap-2 text-base">
+                    <li className="flex items-start gap-2">
+                      <span aria-hidden className="mt-0.5">📮</span>
+                      <a
+                        href={`mailto:${t.epost}`}
+                        className="text-ink hover:text-purple"
+                      >
+                        {t.epost}
+                      </a>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span aria-hidden className="mt-0.5">📞</span>
+                      <a
+                        href={t.telefonHref}
+                        className="text-ink hover:text-purple"
+                      >
+                        {t.telefon}
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               ))}
             </div>
           </div>
         </div>
 
-        {/* Kolonne 2: Utforsk */}
-        <div>
-          <h3 className="mb-4 text-sm font-bold uppercase tracking-widest text-ink-muted">
-            Utforsk
-          </h3>
-          <ul className="flex flex-col gap-3 text-base">
-            {utforsk.map((l) => (
-              <li key={l.href}>
-                <Link
-                  href={l.href}
-                  className="text-ink transition-colors hover:text-purple"
-                >
-                  {l.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Kolonne 3: Kontakt Line og Sandra */}
-        <div>
-          <h3 className="mb-4 text-sm font-bold uppercase tracking-widest text-ink-muted">
-            Ta kontakt
-          </h3>
-          <div className="grid gap-6 sm:grid-cols-2">
-            {trenere.map((t) => (
-              <div key={t.navn}>
-                <p className="font-display text-lg font-extrabold text-ink">
-                  {t.navn}
-                </p>
-                <ul className="mt-2 flex flex-col gap-2 text-base">
-                  <li className="flex items-start gap-2">
-                    <span aria-hidden className="mt-0.5">📮</span>
-                    <a
-                      href={`mailto:${t.epost}`}
-                      className="text-ink hover:text-purple"
-                    >
-                      {t.epost}
-                    </a>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span aria-hidden className="mt-0.5">📞</span>
-                    <a
-                      href={t.telefonHref}
-                      className="text-ink hover:text-purple"
-                    >
-                      {t.telefon}
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            ))}
-          </div>
-          <div className="mt-6 flex items-start gap-2 text-base text-ink">
-            <span aria-hidden className="mt-0.5">📍</span>
-            <span>Oslo — Bygdøy, Grefsen, Sagene og Skøyen</span>
-          </div>
-        </div>
-      </div>
-
-      <div className="border-t border-border">
-        <div className="mx-auto flex max-w-6xl flex-col items-start gap-3 px-6 py-5 text-sm text-ink-muted sm:flex-row sm:items-center sm:justify-between">
-          <span>© {new Date().getFullYear()} Hundemoment</span>
-          <div className="flex flex-wrap gap-4">
-            <Link href="/personvern" className="hover:text-purple">
-              Personvern
-            </Link>
-            <Link href="/vilkar" className="hover:text-purple">
-              Vilkår
-            </Link>
-            <span>Laget med varme og pote-avtrykk</span>
+        <div className="border-t border-border">
+          <div className="mx-auto flex max-w-6xl flex-col items-start gap-3 px-6 py-5 text-sm text-ink-muted sm:flex-row sm:items-center sm:justify-between">
+            <span>© {new Date().getFullYear()} Hundemoment</span>
+            <div className="flex flex-wrap gap-4">
+              <Link href="/personvern" className="hover:text-purple">
+                Personvern
+              </Link>
+              <Link href="/vilkar" className="hover:text-purple">
+                Vilkår
+              </Link>
+              <span>Laget med varme og pote-avtrykk 🐾</span>
+            </div>
           </div>
         </div>
       </div>
