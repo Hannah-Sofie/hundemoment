@@ -84,7 +84,7 @@ export default function Home() {
           />
         </div>
 
-        <div className="relative mx-auto flex w-full max-w-6xl items-end px-6 pb-16 pt-32 md:pb-20 md:pt-40">
+        <div className="relative mx-auto flex w-full max-w-6xl items-center px-6 py-16 md:py-20">
           <div
             className="max-w-3xl text-white"
             style={{ textShadow: "0 2px 12px rgba(31,16,53,0.55)" }}
