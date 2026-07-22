@@ -48,28 +48,52 @@ const faqs = [
   {
     q: "Hvor holdes kursene?",
     a: "Vi har kursplasser på Bygdøy, Grefsen, Skøyen og Sagene i Oslo. Sted varierer med hvilket kurs — det står oppgitt på hvert kurs i kalenderen.",
+    icon: "📍",
+    accent: "orange",
   },
   {
     q: "Hva koster kursene?",
     a: "Prisene varierer med kurstype og lengde. Ta kontakt for oppdaterte priser og informasjon om faktura — vi svarer innen én arbeidsdag.",
+    icon: "💰",
+    accent: "purple",
   },
   {
     q: "Hvor gammel må hunden være?",
     a: "Valpekurs passer for valper 10–20 uker. For våre andre kurs varierer aldersgrensen — sjekk detaljene på hvert kurs, eller ta kontakt om du er usikker.",
+    icon: "🐶",
+    accent: "peach",
   },
   {
     q: "Hvordan betaler jeg?",
     a: "Vi sender faktura per e-post etter påmelding. Betalingsfristen er 14 dager, og plassen din er reservert straks du har meldt deg på.",
+    icon: "📮",
+    accent: "orange",
   },
   {
     q: "Kan jeg avbestille?",
     a: "Ja — du kan avbestille gratis frem til 7 dager før oppstart. Etter det belastes hele kursavgiften.",
+    icon: "↩️",
+    accent: "purple",
   },
   {
     q: "Hva om kurset er fullt?",
     a: "Ta kontakt så setter vi deg på venteliste. Vi setter opp nye kull jevnlig og gir dere beskjed så snart det åpner seg plass.",
+    icon: "⏳",
+    accent: "peach",
   },
-];
+] as const;
+
+const faqAccentBorder = {
+  orange: "border-l-orange",
+  purple: "border-l-purple",
+  peach: "border-l-peach",
+} as const;
+
+const faqAccentBg = {
+  orange: "bg-orange-soft",
+  purple: "bg-purple-soft",
+  peach: "bg-peach/40",
+} as const;
 
 export default function Home() {
   return (
@@ -86,12 +110,12 @@ export default function Home() {
             sizes="100vw"
             className="object-cover object-[center_25%]"
           />
-          {/* Myk lilla-wash over hele bildet — jevn stemning uten å skjule ansikter */}
+          {/* Lettere lilla-wash — beholder ansikter tydelig */}
           <div
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(180deg, rgba(74,31,130,0.35) 0%, rgba(74,31,130,0.55) 100%)",
+                "linear-gradient(180deg, rgba(74,31,130,0.2) 0%, rgba(74,31,130,0.4) 100%)",
             }}
             aria-hidden
           />
@@ -134,34 +158,57 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Om oss — kort teaser med lenke til /om */}
+      {/* Om oss — teaser med bilde ved siden av tekst */}
       <section
         className="border-t border-border"
         style={{
           background:
-            "radial-gradient(circle at 50% 0%, var(--orange-soft) 0%, transparent 55%)",
+            "linear-gradient(180deg, var(--orange-soft) 0%, transparent 80%)",
         }}
       >
-        <div className="mx-auto max-w-4xl px-6 py-20 text-center md:py-24">
-          <p className="mb-3 text-xs font-bold uppercase tracking-widest text-orange">
-            Om oss
-          </p>
-          <h2 className="font-display text-3xl font-extrabold sm:text-4xl md:text-5xl">
-            To trenere, én filosofi.
-          </h2>
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-ink-muted sm:text-xl">
-            Line og Sandra bygger trening på{" "}
-            <strong className="text-ink">modustrening</strong> og{" "}
-            <strong className="text-ink">læringsteori</strong>. Vi vil ikke bare
-            endre atferd — vi vil forstå den, og finne grunnen bak det hunden
-            gjør.
-          </p>
-          <Link
-            href="/om"
-            className="mt-8 inline-flex items-center gap-1 rounded-full border-[1.5px] border-purple px-6 py-3 text-sm font-bold text-purple transition-colors hover:bg-purple-soft"
-          >
-            Bli bedre kjent med oss →
-          </Link>
+        <div className="mx-auto max-w-6xl px-6 py-20 md:py-24">
+          <div className="grid items-center gap-12 md:grid-cols-[1fr_1.1fr]">
+            <div className="relative mx-auto w-full max-w-md md:mx-0">
+              <div
+                className="absolute -right-4 -top-4 h-full w-full rounded-[2rem] bg-purple-soft"
+                aria-hidden
+              />
+              <div
+                className="absolute -bottom-4 -left-4 h-full w-full rounded-[2rem] bg-orange-soft"
+                aria-hidden
+              />
+              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[2rem] shadow-[var(--shadow)]">
+                <Image
+                  src="/line-og-sandra.jpg"
+                  alt="Line og Sandra"
+                  fill
+                  sizes="(min-width: 768px) 40vw, 100vw"
+                  className="object-cover object-[center_20%]"
+                />
+              </div>
+            </div>
+            <div>
+              <p className="mb-3 text-xs font-bold uppercase tracking-widest text-orange">
+                Om oss
+              </p>
+              <h2 className="font-display text-3xl font-extrabold sm:text-4xl md:text-5xl">
+                To trenere, én filosofi.
+              </h2>
+              <p className="mt-6 text-lg text-ink-muted sm:text-xl">
+                Line og Sandra bygger trening på{" "}
+                <strong className="text-ink">modustrening</strong> og{" "}
+                <strong className="text-ink">læringsteori</strong>. Vi vil ikke
+                bare endre atferd — vi vil forstå den, og finne grunnen bak det
+                hunden gjør.
+              </p>
+              <Link
+                href="/om"
+                className="mt-8 inline-flex items-center gap-1 rounded-full border-[1.5px] border-purple px-6 py-3 text-sm font-bold text-purple transition-colors hover:bg-purple-soft"
+              >
+                Bli bedre kjent med oss →
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -362,13 +409,21 @@ export default function Home() {
             {faqs.map((faq) => (
               <details
                 key={faq.q}
-                className="group rounded-2xl border border-border bg-surface-soft transition open:bg-surface-soft hover:border-border-strong"
+                className={`group overflow-hidden rounded-2xl border border-border border-l-[6px] bg-surface transition hover:shadow-[var(--shadow-sm)] ${faqAccentBorder[faq.accent]}`}
               >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-6 font-display text-lg font-extrabold text-ink">
-                  <span>{faq.q}</span>
+                <summary className="flex cursor-pointer list-none items-center gap-4 p-5 text-ink">
                   <span
                     aria-hidden
-                    className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-purple-soft text-purple transition-transform group-open:rotate-180"
+                    className={`grid h-10 w-10 shrink-0 place-items-center rounded-full text-lg ${faqAccentBg[faq.accent]}`}
+                  >
+                    {faq.icon}
+                  </span>
+                  <span className="flex-1 font-display text-lg font-extrabold">
+                    {faq.q}
+                  </span>
+                  <span
+                    aria-hidden
+                    className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-surface-soft text-purple transition-transform group-open:rotate-180"
                   >
                     <svg
                       viewBox="0 0 20 20"
@@ -384,7 +439,7 @@ export default function Home() {
                     </svg>
                   </span>
                 </summary>
-                <div className="px-6 pb-6 text-ink-muted">{faq.a}</div>
+                <div className="px-5 pb-6 pl-[70px] text-ink-muted">{faq.a}</div>
               </details>
             ))}
           </div>
