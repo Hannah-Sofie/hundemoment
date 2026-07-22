@@ -1,29 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-
-const services = [
-  {
-    title: "Valpekurs",
-    description:
-      "Grunnlaget for et godt hundeliv. Sosialisering, kall og de første gode vanene i familien.",
-    price: "Fra 3 200 kr",
-    accent: "orange" as const,
-  },
-  {
-    title: "Grunnkurs",
-    description:
-      "For hunder fra 6 måneder. Lydighet, passivitet og hverdagsutfordringer — bygget på læringsteori.",
-    price: "Fra 3 500 kr",
-    accent: "purple" as const,
-  },
-  {
-    title: "Privattimer",
-    description:
-      "Skreddersydd oppfølging hjemme eller på tur. Vi finner grunnen bak atferden, ikke bare symptomene.",
-    price: "850 kr / time",
-    accent: "peach" as const,
-  },
-];
+import { services } from "@/lib/services";
 
 const upcoming = [
   {
@@ -56,7 +33,8 @@ const accentBg = {
   orange: "bg-orange-soft/60",
   purple: "bg-purple-soft",
   peach: "bg-peach/35",
-};
+  "purple-deep": "bg-purple-soft",
+} as const;
 
 export default function Home() {
   return (
@@ -140,11 +118,12 @@ export default function Home() {
               Se alle tjenester →
             </Link>
           </div>
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {services.map((service) => (
-              <article
-                key={service.title}
-                className="relative overflow-hidden rounded-3xl border border-border bg-surface-soft p-6"
+              <Link
+                href={`/tjenester/${service.slug}`}
+                key={service.slug}
+                className="group relative flex flex-col overflow-hidden rounded-3xl border border-border bg-surface-soft p-6 transition hover:-translate-y-0.5 hover:border-border-strong hover:shadow-[var(--shadow-sm)]"
               >
                 <span
                   className={`absolute -right-6 -top-6 h-24 w-24 rounded-full ${accentBg[service.accent]}`}
@@ -153,13 +132,16 @@ export default function Home() {
                 <h3 className="relative mt-1 font-display text-xl font-extrabold">
                   {service.title}
                 </h3>
-                <p className="relative mt-2 text-sm text-ink-muted">
-                  {service.description}
+                <p className="relative mt-2 flex-1 text-sm text-ink-muted">
+                  {service.short}
                 </p>
-                <p className="relative mt-4 font-display font-extrabold text-purple">
-                  {service.price}
-                </p>
-              </article>
+                <span className="relative mt-5 inline-flex items-center gap-1 text-sm font-bold text-purple">
+                  Les mer{" "}
+                  <span className="transition-transform group-hover:translate-x-1">
+                    →
+                  </span>
+                </span>
+              </Link>
             ))}
           </div>
         </div>
