@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { createPortal } from "react-dom";
 import { type Course, formatFullDate } from "@/lib/courses";
 
@@ -13,8 +13,10 @@ type Props = {
 
 export function SignupModal({ course, onClose }: Props) {
   const [mode, setMode] = useState<Mode>("guest");
+  const [step, setStep] = useState<1 | 2>(1);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
     const original = document.body.style.overflow;
@@ -27,18 +29,32 @@ export function SignupModal({ course, onClose }: Props) {
     };
   }, [onClose]);
 
+  useEffect(() => {
+    setStep(1);
+  }, [mode]);
+
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setSubmitting(true);
     const data = Object.fromEntries(new FormData(e.currentTarget).entries());
     // TODO: send til /api/signups når Supabase er koblet opp
-    console.log("Ny påmelding:", { courseSlug: course.slug, ...data });
+    console.log("Ny påmelding:", { courseSlug: course.slug, mode, ...data });
     await new Promise((r) => setTimeout(r, 600));
     setSubmitting(false);
     setSubmitted(true);
   }
 
+  function goNext() {
+    if (formRef.current?.checkValidity()) {
+      setStep(2);
+    } else {
+      formRef.current?.reportValidity();
+    }
+  }
+
   if (typeof document === "undefined") return null;
+
+  const showSteps = mode !== "login";
 
   return createPortal(
     <div
@@ -66,16 +82,59 @@ export function SignupModal({ course, onClose }: Props) {
         ) : (
           <>
             <CourseSummary course={course} />
-
-            <div className="border-t border-border px-8 py-6">
+            <div className="border-t border-border px-8 pb-6 pt-6">
               <ModeTabs mode={mode} setMode={setMode} />
 
               {mode === "login" ? (
                 <LoginForm />
-              ) : mode === "register" ? (
-                <SignupForm course={course} onSubmit={handleSubmit} submitting={submitting} withPassword />
               ) : (
-                <SignupForm course={course} onSubmit={handleSubmit} submitting={submitting} />
+                <>
+                  <StepIndicator step={step} />
+                  <form
+                    ref={formRef}
+                    onSubmit={handleSubmit}
+                    className="flex flex-col gap-5"
+                  >
+                    <div className={step === 1 ? "block" : "hidden"}>
+                      <StepOne withPassword={mode === "register"} />
+                    </div>
+                    <div className={step === 2 ? "block" : "hidden"}>
+                      <StepTwo />
+                    </div>
+
+                    <div className="flex justify-between gap-3 pt-2">
+                      {step === 2 ? (
+                        <button
+                          type="button"
+                          onClick={() => setStep(1)}
+                          className="rounded-full border-[1.5px] border-purple px-5 py-2.5 text-sm font-bold text-purple transition-colors hover:bg-purple-soft"
+                        >
+                          ← Tilbake
+                        </button>
+                      ) : (
+                        <span />
+                      )}
+
+                      {step === 1 ? (
+                        <button
+                          type="button"
+                          onClick={goNext}
+                          className="rounded-full bg-orange px-6 py-2.5 text-sm font-bold text-white shadow-[0_8px_20px_-8px_var(--orange)] transition-transform hover:-translate-y-0.5"
+                        >
+                          Neste steg →
+                        </button>
+                      ) : (
+                        <button
+                          type="submit"
+                          disabled={submitting}
+                          className="rounded-full bg-orange px-6 py-2.5 text-sm font-bold text-white shadow-[0_8px_20px_-8px_var(--orange)] transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
+                        >
+                          {submitting ? "Sender…" : "Meld på →"}
+                        </button>
+                      )}
+                    </div>
+                  </form>
+                </>
               )}
             </div>
           </>
@@ -83,6 +142,47 @@ export function SignupModal({ course, onClose }: Props) {
       </div>
     </div>,
     document.body,
+  );
+}
+
+function StepIndicator({ step }: { step: 1 | 2 }) {
+  return (
+    <div className="mb-6 flex items-center gap-3">
+      <StepPill n={1} active={step === 1} done={step > 1} label="Om deg" />
+      <div className="h-[2px] flex-1 rounded-full bg-border" />
+      <StepPill n={2} active={step === 2} done={false} label="Om hunden" />
+    </div>
+  );
+}
+
+function StepPill({
+  n,
+  active,
+  done,
+  label,
+}: {
+  n: number;
+  active: boolean;
+  done: boolean;
+  label: string;
+}) {
+  return (
+    <div className="flex items-center gap-2">
+      <span
+        className={`grid h-8 w-8 place-items-center rounded-full text-sm font-extrabold ${
+          active || done ? "bg-purple text-white" : "bg-purple-soft text-purple"
+        }`}
+      >
+        {done ? "✓" : n}
+      </span>
+      <span
+        className={`text-xs font-bold uppercase tracking-widest ${
+          active ? "text-ink" : "text-ink-muted"
+        }`}
+      >
+        {label}
+      </span>
+    </div>
   );
 }
 
@@ -109,7 +209,10 @@ function CourseSummary({ course }: { course: Course }) {
           }
         />
         <Info label="Instruktør" value={course.instructor} />
-        <Info label="Plasser igjen" value={`${course.spotsLeft} av ${course.spotsTotal}`} />
+        <Info
+          label="Plasser igjen"
+          value={`${course.spotsLeft} av ${course.spotsTotal}`}
+        />
       </dl>
     </div>
   );
@@ -126,7 +229,13 @@ function Info({ label, value }: { label: string; value: string }) {
   );
 }
 
-function ModeTabs({ mode, setMode }: { mode: Mode; setMode: (m: Mode) => void }) {
+function ModeTabs({
+  mode,
+  setMode,
+}: {
+  mode: Mode;
+  setMode: (m: Mode) => void;
+}) {
   const tabs: { key: Mode; label: string }[] = [
     { key: "guest", label: "Fortsett som gjest" },
     { key: "login", label: "Logg inn" },
@@ -173,69 +282,94 @@ function LoginForm() {
   );
 }
 
-function SignupForm({
-  course,
-  onSubmit,
-  submitting,
-  withPassword = false,
-}: {
-  course: Course;
-  onSubmit: (e: FormEvent<HTMLFormElement>) => void;
-  submitting: boolean;
-  withPassword?: boolean;
-}) {
+function StepOne({ withPassword }: { withPassword: boolean }) {
   return (
-    <form onSubmit={onSubmit} className="flex flex-col gap-5">
-      <Section title="Om deg">
-        <div className="grid gap-4 sm:grid-cols-2">
-          <Field name="fornavn" label="Fornavn" required />
-          <Field name="etternavn" label="Etternavn" required />
-          <Field name="epost" label="E-post" type="email" required />
-          <Field name="telefon" label="Telefon" type="tel" required />
-          <Field name="adresse" label="Adresse" required className="sm:col-span-2" />
-          {withPassword && (
-            <Field
-              name="passord"
-              label="Velg passord"
-              type="password"
-              required
-              hint="Minst 8 tegn"
-              className="sm:col-span-2"
-            />
-          )}
-        </div>
-      </Section>
+    <div>
+      <h3 className="mb-3 text-xs font-bold uppercase tracking-widest text-orange">
+        Om deg
+      </h3>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Field name="fornavn" label="Fornavn" required />
+        <Field name="etternavn" label="Etternavn" required />
+        <Field name="epost" label="E-post" type="email" required />
+        <Field name="telefon" label="Telefon" type="tel" required />
+        <Field
+          name="adresse"
+          label="Adresse"
+          required
+          className="sm:col-span-2"
+        />
+        {withPassword && (
+          <Field
+            name="passord"
+            label="Velg passord"
+            type="password"
+            required
+            hint="Minst 8 tegn"
+            className="sm:col-span-2"
+          />
+        )}
+      </div>
+    </div>
+  );
+}
 
-      <Section title="Om hunden">
+function StepTwo() {
+  return (
+    <div className="flex flex-col gap-5">
+      <div>
+        <h3 className="mb-3 text-xs font-bold uppercase tracking-widest text-orange">
+          Om hunden
+        </h3>
         <div className="grid gap-4 sm:grid-cols-2">
           <Field name="hundenavn" label="Hundens navn" required />
           <Field name="rase" label="Rase" required />
-          <Field name="alder" label="Alder" placeholder="F.eks. 4 måneder" required />
+          <Field
+            name="alder"
+            label="Alder"
+            placeholder="F.eks. 4 måneder"
+            required
+          />
           <div className="flex flex-col gap-1.5">
             <span className="text-sm font-bold text-ink">Kjønn</span>
             <div className="flex gap-3">
               <RadioChip name="kjonn" value="tispe" label="Tispe" />
-              <RadioChip name="kjonn" value="hann" label="Hannhund" defaultChecked />
+              <RadioChip
+                name="kjonn"
+                value="hann"
+                label="Hannhund"
+                defaultChecked
+              />
             </div>
           </div>
           <div className="flex flex-col gap-1.5 sm:col-span-2">
-            <span className="text-sm font-bold text-ink">Kastrert / sterilisert</span>
+            <span className="text-sm font-bold text-ink">
+              Kastrert / sterilisert
+            </span>
             <div className="flex gap-3">
               <RadioChip name="kastrert" value="ja" label="Ja" />
-              <RadioChip name="kastrert" value="nei" label="Nei" defaultChecked />
+              <RadioChip
+                name="kastrert"
+                value="nei"
+                label="Nei"
+                defaultChecked
+              />
             </div>
           </div>
         </div>
-      </Section>
+      </div>
 
-      <Section title="Noe vi bør vite?">
+      <div>
+        <h3 className="mb-3 text-xs font-bold uppercase tracking-widest text-orange">
+          Noe vi bør vite?
+        </h3>
         <Field
           name="annet"
           label="Annen relevant informasjon"
           type="textarea"
           placeholder="Utfordringer, spesielle behov, allergier — det du tenker er nyttig for oss å vite på forhånd."
         />
-      </Section>
+      </div>
 
       <div className="rounded-2xl border border-border bg-orange-soft/60 p-4 text-sm">
         <p className="font-bold text-ink">📮 Betaling via faktura</p>
@@ -244,25 +378,6 @@ function SignupForm({
           kursoppstart. Plassen din er reservert straks du melder deg på.
         </p>
       </div>
-
-      <button
-        type="submit"
-        disabled={submitting}
-        className="rounded-full bg-orange px-6 py-3.5 text-base font-bold text-white shadow-[0_10px_28px_-10px_var(--orange)] transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
-      >
-        {submitting ? "Sender…" : `Meld på ${course.title} →`}
-      </button>
-    </form>
-  );
-}
-
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <div>
-      <h3 className="mb-3 text-xs font-bold uppercase tracking-widest text-orange">
-        {title}
-      </h3>
-      {children}
     </div>
   );
 }
@@ -340,18 +455,24 @@ function RadioChip({
   );
 }
 
-function SuccessView({ course, onClose }: { course: Course; onClose: () => void }) {
+function SuccessView({
+  course,
+  onClose,
+}: {
+  course: Course;
+  onClose: () => void;
+}) {
   return (
     <div className="p-8 text-center sm:p-12">
-      <div className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-orange text-3xl text-white">
+      <div className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-success text-3xl text-white">
         ✓
       </div>
       <h2 className="mt-6 font-display text-2xl font-extrabold text-ink sm:text-3xl">
         Du er meldt på!
       </h2>
       <p className="mx-auto mt-3 max-w-md text-ink-muted">
-        Vi har mottatt påmeldingen til <strong>{course.title}</strong>. Du får en
-        bekreftelse på e-post nå, og faktura senest 14 dager før kursoppstart.
+        Vi har mottatt påmeldingen til <strong>{course.title}</strong>. Du får
+        en bekreftelse på e-post nå, og faktura senest 14 dager før kursoppstart.
       </p>
       <button
         type="button"

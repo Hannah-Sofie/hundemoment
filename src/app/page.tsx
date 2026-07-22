@@ -135,7 +135,13 @@ export default function Home() {
       </section>
 
       {/* Om oss — kort teaser med lenke til /om */}
-      <section className="border-t border-border">
+      <section
+        className="border-t border-border"
+        style={{
+          background:
+            "radial-gradient(circle at 50% 0%, var(--orange-soft) 0%, transparent 55%)",
+        }}
+      >
         <div className="mx-auto max-w-4xl px-6 py-20 text-center md:py-24">
           <p className="mb-3 text-xs font-bold uppercase tracking-widest text-orange">
             Om oss
@@ -160,7 +166,13 @@ export default function Home() {
       </section>
 
       {/* Services */}
-      <section className="border-t border-border">
+      <section
+        className="border-t border-border"
+        style={{
+          background:
+            "linear-gradient(180deg, var(--purple-soft) 0%, transparent 60%)",
+        }}
+      >
         <div className="mx-auto max-w-6xl px-6 py-20">
           <div className="mb-10 flex items-end justify-between gap-6">
             <div>
@@ -178,29 +190,40 @@ export default function Home() {
               Se alle tjenester →
             </Link>
           </div>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {services.map((service) => (
               <Link
                 href={`/tjenester/${service.slug}`}
                 key={service.slug}
-                className="group relative flex flex-col overflow-hidden rounded-3xl border border-border bg-surface-soft p-6 transition hover:-translate-y-0.5 hover:border-border-strong hover:shadow-[var(--shadow-sm)]"
+                className="group flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-surface shadow-[var(--shadow-sm)] transition hover:-translate-y-0.5 hover:border-border-strong"
               >
-                <span
-                  className={`absolute -right-6 -top-6 h-24 w-24 rounded-full ${accentBg[service.accent]}`}
-                  aria-hidden
-                />
-                <h3 className="relative mt-1 font-display text-xl font-extrabold">
-                  {service.title}
-                </h3>
-                <p className="relative mt-2 flex-1 text-sm text-ink-muted">
-                  {service.short}
-                </p>
-                <span className="relative mt-5 inline-flex items-center gap-1 text-sm font-bold text-purple">
-                  Les mer{" "}
-                  <span className="transition-transform group-hover:translate-x-1">
-                    →
+                <div className="relative aspect-[16/10] overflow-hidden">
+                  <Image
+                    src={service.image}
+                    alt={service.title}
+                    fill
+                    sizes="(min-width: 1024px) 30vw, (min-width: 640px) 50vw, 100vw"
+                    className="object-cover object-[center_25%] transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <span
+                    className={`absolute -right-6 -top-6 h-24 w-24 rounded-full ${accentBg[service.accent]}`}
+                    aria-hidden
+                  />
+                </div>
+                <div className="flex flex-1 flex-col p-6">
+                  <h3 className="font-display text-xl font-extrabold">
+                    {service.title}
+                  </h3>
+                  <p className="mt-2 flex-1 text-sm text-ink-muted">
+                    {service.short}
+                  </p>
+                  <span className="mt-5 inline-flex items-center gap-1 text-sm font-bold text-purple">
+                    Les mer{" "}
+                    <span className="transition-transform group-hover:translate-x-1">
+                      →
+                    </span>
                   </span>
-                </span>
+                </div>
               </Link>
             ))}
           </div>
@@ -274,7 +297,13 @@ export default function Home() {
       </section>
 
       {/* Kundeanmeldelser — TODO: erstatt med ekte sitater */}
-      <section className="border-t border-border">
+      <section
+        className="border-t border-border"
+        style={{
+          background:
+            "linear-gradient(180deg, var(--purple-soft) 0%, transparent 60%)",
+        }}
+      >
         <div className="mx-auto max-w-6xl px-6 py-20">
           <div className="mb-10 text-center">
             <p className="mb-2 text-xs font-bold uppercase tracking-widest text-orange">

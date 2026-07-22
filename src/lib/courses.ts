@@ -117,6 +117,23 @@ export const courses: Course[] = [
     accent: "orange",
   },
   {
+    slug: "valpekurs-morgenkull",
+    title: "Valpekurs — morgen",
+    serviceSlug: "valpekurs",
+    startDate: "2026-09-08",
+    weekday: "Tirsdager",
+    time: "10:00",
+    location: "Bygdøy",
+    instructor: "Sandra",
+    durationWeeks: 6,
+    spotsTotal: 8,
+    spotsLeft: 0,
+    description:
+      "Populært morgenkull for valp. Perfekt for deg som er ute med valpen på dagtid.",
+    image: "/line-og-sandra.jpg",
+    accent: "orange",
+  },
+  {
     slug: "camp-hostferie",
     title: "Camp — høstferie",
     serviceSlug: "camp",
@@ -137,4 +154,12 @@ export const courses: Course[] = [
 
 export function getCourse(slug: string): Course | undefined {
   return courses.find((c) => c.slug === slug);
+}
+
+export type SpotStatus = "available" | "limited" | "full";
+
+export function getSpotStatus(course: Course): SpotStatus {
+  if (course.spotsLeft <= 0) return "full";
+  if (course.spotsLeft / course.spotsTotal > 0.5) return "available";
+  return "limited";
 }

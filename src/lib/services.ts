@@ -9,6 +9,7 @@ export type Service = {
   format: string;
   learnPoints: string[];
   accent: ServiceAccent;
+  image: string;
 };
 
 export const services: Service[] = [
@@ -28,6 +29,7 @@ export const services: Service[] = [
       "Verktøy for å håndtere vanlige valpe-utfordringer",
     ],
     accent: "orange",
+    image: "/line-og-sandra.jpg",
   },
   {
     slug: "sosialiseringskurs",
@@ -45,6 +47,7 @@ export const services: Service[] = [
       "Verktøy for å håndtere overveldende situasjoner",
     ],
     accent: "purple",
+    image: "/line-og-sandra.jpg",
   },
   {
     slug: "passeringskurs",
@@ -62,6 +65,7 @@ export const services: Service[] = [
       "Progresjon fra enkel til krevende situasjon",
     ],
     accent: "peach",
+    image: "/line-og-sandra.jpg",
   },
   {
     slug: "beloenningsutvikling",
@@ -79,6 +83,7 @@ export const services: Service[] = [
       "Overgang fra kontinuerlig til variabel belønning",
     ],
     accent: "purple-deep",
+    image: "/line-og-sandra.jpg",
   },
   {
     slug: "privattimer",
@@ -96,6 +101,7 @@ export const services: Service[] = [
       "Rabatt ved kjøp av klippekort",
     ],
     accent: "orange",
+    image: "/line-og-sandra.jpg",
   },
   {
     slug: "camp",
@@ -113,6 +119,7 @@ export const services: Service[] = [
       "Fellesskap med andre hundeentusiaster",
     ],
     accent: "purple",
+    image: "/line-og-sandra.jpg",
   },
 ];
 

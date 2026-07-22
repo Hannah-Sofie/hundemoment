@@ -1,6 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import { type Course, formatDay, formatMonth } from "@/lib/courses";
+import {
+  type Course,
+  formatDay,
+  formatMonth,
+  getSpotStatus,
+} from "@/lib/courses";
 import { SignupButton } from "./SignupButton";
 
 const pillColor = {
@@ -10,11 +15,17 @@ const pillColor = {
 } as const;
 
 export function CourseCard({ course }: { course: Course }) {
-  const spotsCritical = course.spotsLeft <= 2;
+  const status = getSpotStatus(course);
+  const badgeStyle =
+    status === "full"
+      ? "bg-danger text-white"
+      : status === "limited"
+        ? "bg-orange text-white"
+        : "bg-success text-white";
+  const badgeText = status === "full" ? "Fullt" : `${course.spotsLeft} plasser igjen`;
 
   return (
     <article className="flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-surface shadow-[var(--shadow-sm)] transition hover:-translate-y-0.5 hover:border-border-strong">
-      {/* Bilde med dato-pill */}
       <div className="relative aspect-[16/10] overflow-hidden">
         <Image
           src={course.image}
@@ -35,18 +46,13 @@ export function CourseCard({ course }: { course: Course }) {
         </div>
         <div className="absolute right-4 top-4">
           <span
-            className={`rounded-full px-3 py-1 text-[11px] font-bold ${
-              spotsCritical
-                ? "bg-orange text-white"
-                : "bg-white/90 text-purple-deep backdrop-blur"
-            }`}
+            className={`rounded-full px-3 py-1 text-[11px] font-bold shadow-sm ${badgeStyle}`}
           >
-            {course.spotsLeft} plasser igjen
+            {badgeText}
           </span>
         </div>
       </div>
 
-      {/* Innhold */}
       <div className="flex flex-1 flex-col p-6">
         <h3 className="font-display text-xl font-extrabold">{course.title}</h3>
 
@@ -73,7 +79,7 @@ export function CourseCard({ course }: { course: Course }) {
         </p>
 
         <div className="mt-5 flex flex-wrap gap-2">
-          <SignupButton course={course} />
+          <SignupButton course={course} status={status} />
           <Link
             href={`/kurs/${course.slug}`}
             className="rounded-full border-[1.5px] border-purple px-4 py-2 text-sm font-bold text-purple transition-colors hover:bg-purple-soft"
