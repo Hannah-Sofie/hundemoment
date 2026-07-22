@@ -95,6 +95,17 @@ const faqAccentBg = {
   peach: "bg-peach/40",
 } as const;
 
+function Fact({ number, label }: { number: string; label: string }) {
+  return (
+    <div>
+      <div className="font-display text-3xl font-extrabold text-purple sm:text-4xl">
+        {number}
+      </div>
+      <div className="mt-1 text-sm text-ink-muted">{label}</div>
+    </div>
+  );
+}
+
 export default function Home() {
   return (
     <div>
@@ -158,52 +169,60 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Om oss — teaser med bilde ved siden av tekst */}
-      <section
-        className="border-t border-border"
-        style={{
-          background:
-            "linear-gradient(180deg, var(--orange-soft) 0%, transparent 80%)",
-        }}
-      >
-        <div className="mx-auto max-w-6xl px-6 py-20 md:py-24">
-          <div className="grid items-center gap-12 md:grid-cols-[1fr_1.1fr]">
-            <div className="relative mx-auto w-full max-w-md md:mx-0">
-              <div
-                className="absolute -right-4 -top-4 h-full w-full rounded-[2rem] bg-purple-soft"
-                aria-hidden
-              />
-              <div
-                className="absolute -bottom-4 -left-4 h-full w-full rounded-[2rem] bg-orange-soft"
-                aria-hidden
-              />
-              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[2rem] shadow-[var(--shadow)]">
+      {/* Om oss — clean, luftig, hvit bakgrunn */}
+      <section className="border-t border-border bg-surface">
+        <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
+          <div className="grid items-center gap-14 md:grid-cols-[0.9fr_1.1fr]">
+            {/* Bilde med diskrete pote-aksenter */}
+            <div className="relative mx-auto w-full max-w-sm md:mx-0">
+              <div className="relative aspect-square w-full overflow-hidden rounded-full shadow-[var(--shadow)]">
                 <Image
                   src="/line-og-sandra.jpg"
                   alt="Line og Sandra"
                   fill
-                  sizes="(min-width: 768px) 40vw, 100vw"
+                  sizes="(min-width: 768px) 35vw, 100vw"
                   className="object-cover object-[center_20%]"
                 />
               </div>
+              <span
+                className="absolute -right-4 top-4 grid h-14 w-14 place-items-center rounded-full bg-orange text-2xl shadow-lg"
+                aria-hidden
+              >
+                🐾
+              </span>
+              <span
+                className="absolute -left-2 bottom-6 grid h-12 w-12 place-items-center rounded-full bg-purple text-xl shadow-lg"
+                aria-hidden
+              >
+                🧡
+              </span>
             </div>
+
+            {/* Tekst + tre nøkkeltall */}
             <div>
-              <p className="mb-3 text-xs font-bold uppercase tracking-widest text-orange">
-                Om oss
+              <p className="mb-3 text-sm font-bold uppercase tracking-widest text-orange">
+                Møt Line &amp; Sandra
               </p>
-              <h2 className="font-display text-3xl font-extrabold sm:text-4xl md:text-5xl">
+              <h2 className="font-display text-4xl font-extrabold sm:text-5xl">
                 To trenere, én filosofi.
               </h2>
               <p className="mt-6 text-lg text-ink-muted sm:text-xl">
-                Line og Sandra bygger trening på{" "}
+                Vi bygger trening på{" "}
                 <strong className="text-ink">modustrening</strong> og{" "}
                 <strong className="text-ink">læringsteori</strong>. Vi vil ikke
                 bare endre atferd — vi vil forstå den, og finne grunnen bak det
                 hunden gjør.
               </p>
+
+              <div className="mt-8 grid grid-cols-3 gap-4 sm:gap-6">
+                <Fact number="240+" label="hunder trent" />
+                <Fact number="6" label="ulike kurstyper" />
+                <Fact number="100%" label="positiv metodikk" />
+              </div>
+
               <Link
                 href="/om"
-                className="mt-8 inline-flex items-center gap-1 rounded-full border-[1.5px] border-purple px-6 py-3 text-sm font-bold text-purple transition-colors hover:bg-purple-soft"
+                className="mt-8 inline-flex items-center gap-1 rounded-full border-[1.5px] border-purple px-6 py-3 text-base font-bold text-purple transition-colors hover:bg-purple-soft"
               >
                 Bli bedre kjent med oss →
               </Link>
@@ -213,13 +232,7 @@ export default function Home() {
       </section>
 
       {/* Services */}
-      <section
-        className="border-t border-border"
-        style={{
-          background:
-            "linear-gradient(180deg, var(--purple-soft) 0%, transparent 60%)",
-        }}
-      >
+      <section className="border-t border-border bg-surface-soft">
         <div className="mx-auto max-w-6xl px-6 py-20">
           <div className="mb-10 flex items-end justify-between gap-6">
             <div>
@@ -344,13 +357,7 @@ export default function Home() {
       </section>
 
       {/* Kundeanmeldelser — TODO: erstatt med ekte sitater */}
-      <section
-        className="border-t border-border"
-        style={{
-          background:
-            "linear-gradient(180deg, var(--purple-soft) 0%, transparent 60%)",
-        }}
-      >
+      <section className="border-t border-border bg-surface-soft">
         <div className="mx-auto max-w-6xl px-6 py-20">
           <div className="mb-10 text-center">
             <p className="mb-2 text-xs font-bold uppercase tracking-widest text-orange">
