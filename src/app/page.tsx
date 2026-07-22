@@ -1,33 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { services } from "@/lib/services";
+import { courses } from "@/lib/courses";
+import { CourseCard } from "@/components/CourseCard";
 
-const upcoming = [
-  {
-    day: "12",
-    month: "Aug",
-    title: "Valpekurs — kveld",
-    meta: "Torsdager 18:00 · Bygdøy",
-    spots: "3 plasser igjen",
-    pillColor: "bg-purple",
-  },
-  {
-    day: "19",
-    month: "Aug",
-    title: "Grunnkurs A",
-    meta: "Mandager 17:30 · Grefsen",
-    spots: "5 plasser igjen",
-    pillColor: "bg-orange",
-  },
-  {
-    day: "02",
-    month: "Sep",
-    title: "Modustrening for viderekomne",
-    meta: "Lørdager 11:00 · Sagene",
-    spots: "2 plasser igjen",
-    pillColor: "bg-purple-deep",
-  },
-];
+const upcomingCourses = courses.slice(0, 3);
 
 const accentBg = {
   orange: "bg-orange-soft/60",
@@ -177,7 +154,7 @@ export default function Home() {
             href="/om"
             className="mt-8 inline-flex items-center gap-1 rounded-full border-[1.5px] border-purple px-6 py-3 text-sm font-bold text-purple transition-colors hover:bg-purple-soft"
           >
-            Bli bedre kjent →
+            Bli bedre kjent med oss →
           </Link>
         </div>
       </section>
@@ -246,33 +223,9 @@ export default function Home() {
               Hele kurskalenderen →
             </Link>
           </div>
-          <div className="grid gap-4 md:grid-cols-3">
-            {upcoming.map((course) => (
-              <Link
-                href="/kurs"
-                key={course.title}
-                className="flex items-center gap-4 rounded-2xl border border-border bg-surface p-4 transition hover:border-border-strong hover:shadow-[var(--shadow-sm)]"
-              >
-                <div
-                  className={`flex h-16 w-16 shrink-0 flex-col items-center justify-center rounded-2xl font-display text-white ${course.pillColor}`}
-                >
-                  <span className="text-2xl font-extrabold leading-none tabular-nums">
-                    {course.day}
-                  </span>
-                  <span className="mt-0.5 text-[10px] uppercase tracking-widest opacity-90">
-                    {course.month}
-                  </span>
-                </div>
-                <div className="min-w-0 flex-1">
-                  <h3 className="truncate font-display text-base font-bold">
-                    {course.title}
-                  </h3>
-                  <p className="text-xs text-ink-muted">{course.meta}</p>
-                  <span className="mt-1.5 inline-block rounded-full bg-orange-soft px-2 py-0.5 text-[11px] font-bold text-orange">
-                    {course.spots}
-                  </span>
-                </div>
-              </Link>
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {upcomingCourses.map((course) => (
+              <CourseCard key={course.slug} course={course} />
             ))}
           </div>
         </div>
